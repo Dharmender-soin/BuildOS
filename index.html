@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuildOS - Interactive Process Architect & Live Miro Canvas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- App Header & Navigation -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">B</div>
+      <div>
+        <h1 class="brand-text">BuildOS</h1>
+        <p style="font-size: 0.65rem; color: var(--color-ai); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-top: -2px;">Digital Facade & Interior OS</p>
+      </div>
+    </div>
+    <nav>
+      <button class="tab-btn" onclick="switchTab('tab-comparison')" style="display: none;">As-Is vs To-Be</button>
+      <button class="tab-btn" onclick="switchTab('tab-flowchart')" style="display: none;">Interactive Digital Flow</button>
+      <button class="tab-btn active" onclick="switchTab('tab-miro-board')">BuildOS Miro Board</button>
+      <button class="tab-btn" onclick="switchTab('tab-roles')" style="display: none;">Roles & Views Matrix</button>
+    </nav>
+    <div>
+      <button id="client-pitch-toggle" class="badge tobe" onclick="toggleClientPitchMode()" style="cursor: pointer; border: none; font-weight: bold; font-family: inherit; font-size: 0.7rem;" title="Click to toggle Client Pitch Mode (hides/shows other tabs)">🟢 Client Pitch Mode: ON</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- TAB 1: As-Is vs To-Be Comparison -->
+    <section id="tab-comparison" class="tab-content">
+      <div class="legend-container">
+        <span style="font-weight:600; font-size:0.875rem; color: #fff; margin-right: 0.5rem;">Visual Legend:</span>
+        <div class="legend-item"><div class="legend-color completed"></div> Completed / Foundation</div>
+        <div class="legend-item"><div class="legend-color inprogress"></div> In Progress / Active Execution</div>
+        <div class="legend-item"><div class="legend-color blocked"></div> Blocked / Attention Required</div>
+        <div class="legend-item"><div class="legend-color reports"></div> Reports & Dashboards</div>
+        <div class="legend-item"><div class="legend-color ai"></div> AI & WhatsApp Services</div>
+      </div>
+
+      <div class="comparison-grid">
+        <!-- As-Is Workflow Card -->
+        <div class="card workflow-container">
+          <div class="workflow-header asis">
+            <h2>Current Workflow (As-Is)</h2>
+            <span class="badge asis">Manual & Fragmented</span>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--color-text-muted);">How execution works today, causing delays, coordination gaps, and data isolation.</p>
+          
+          <div class="list-item-glass">
+            <div class="step-number">01</div>
+            <div class="step-details">
+              <h3>Scattered Drawings & Revisions</h3>
+              <p>Drawings are sent over WhatsApp/Emails. Engineers on site often work on outdated drawing versions without knowing a revision was issued.</p>
+              <span class="tool-tag">WhatsApp / PDF Mail</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">02</div>
+            <div class="step-details">
+              <h3>Manual BOQ & Ordering</h3>
+              <p>BOM sheets are compiled in Excel. Ordering materials, verifying store stocks, and checking pending orders is done via phone calls.</p>
+              <span class="tool-tag">Excel Sheet / Phone Call</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">03</div>
+            <div class="step-details">
+              <h3>Factory Production Status Blindspot</h3>
+              <p>Management cannot see factory status easily. Multiple messages must be sent to the factory team to know if an item is ready or dispatched.</p>
+              <span class="tool-tag">WhatsApp Groups</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">04</div>
+            <div class="step-details">
+              <h3>Partial Delivery & Store Disputes</h3>
+              <p>Materials dispatched in parts. Discrepancies between what was shipped, received, and installed are tracked in offline registers.</p>
+              <span class="tool-tag">Paper Challan / Diary</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">05</div>
+            <div class="step-details">
+              <h3>Unstructured DPRs & Delay Alerts</h3>
+              <p>Site engineers copy-paste daily updates into WhatsApp. Project manager manually updates Excel trackers. Delays are discovered too late.</p>
+              <span class="tool-tag">WhatsApp Message / Daily Call</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- To-Be Workflow Card -->
+        <div class="card workflow-container">
+          <div class="workflow-header tobe">
+            <h2>Future Workflow (To-Be)</h2>
+            <span class="badge tobe">Integrated Platform</span>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--color-text-muted);">The BuildOS system: A unified database connecting Design, Factory, Store, and Site in real time.</p>
+          
+          <div class="list-item-glass">
+            <div class="step-number">01</div>
+            <div class="step-details">
+              <h3>DesignOS (Drawing & Version Control)</h3>
+              <p>Shop & Structural Drawings uploaded with strict revision locks. Site scanning instantly shows if a drawing is approved for installation.</p>
+              <span class="tool-tag green">Central CAD Database</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">02</div>
+            <div class="step-details">
+              <h3>ProjectOS & BOQ (Auto Status Mapping)</h3>
+              <p>BOQ connects to WBS (Tower/Floor/Zone). Track order lifecycle automatically (Confirmed -> Ordered -> Dispatch -> Site Received).</p>
+              <span class="tool-tag green">Dynamic BOQ Tracking</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">03</div>
+            <div class="step-details">
+              <h3>FactoryOS (Production & QC Releases)</h3>
+              <p>Production releases are tracked on simple kanban states. Quality check (QC) status triggers automatic barcode or QR tags for transport.</p>
+              <span class="tool-tag green">QR Scan & Status Logs</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">04</div>
+            <div class="step-details">
+              <h3>InventoryOS (Full vs Partial Dispatches)</h3>
+              <p>Dispatches mapped to challans. App lists precisely what was sent. Site engineer logs received count, instantly flagging discrepancies.</p>
+              <span class="tool-tag green">Challan Digital Ledger</span>
+            </div>
+          </div>
+
+          <div class="list-item-glass">
+            <div class="step-number">05</div>
+            <div class="step-details">
+              <h3>SiteOS & AI-DPR Engine</h3>
+              <p>Site engineers click photos & mark installation progress on the mobile app. TRDI progress calculates automatically. AI summaries are pushed to WhatsApp.</p>
+              <span class="tool-tag green">Auto WhatsApp DPR & AI Summary</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-4 mb-4">
+        <button class="btn" onclick="switchTab('tab-flowchart')">
+          Explore the Interactive Flowchart
+          <svg style="width: 16px; height: 16px;" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB 2: Interactive Future Flowchart -->
+    <section id="tab-flowchart" class="tab-content">
+      <div class="flow-view-layout">
+        <!-- Automation Side panel -->
+        <div class="automation-panel">
+          <!-- AI Card -->
+          <div class="card automation-card ai">
+            <h3>🤖 AIOS Services</h3>
+            <ul class="auto-list">
+              <li><span class="bullet-icon">✦</span> AI DPR Generator</li>
+              <li><span class="bullet-icon">✦</span> Delay & Risk Predictor</li>
+              <li><span class="bullet-icon">✦</span> WhatsApp Chat Summarizer</li>
+              <li><span class="bullet-icon">✦</span> Material Forecast Engine</li>
+            </ul>
+          </div>
+          <!-- Mobile Card -->
+          <div class="card automation-card mobile">
+            <h3>📱 Site App</h3>
+            <ul class="auto-list">
+              <li><span class="bullet-icon">📱</span> Attendance & Labours</li>
+              <li><span class="bullet-icon">📷</span> Site Photo & Issues Log</li>
+              <li><span class="bullet-icon">📦</span> QR Material Gate-In</li>
+              <li><span class="bullet-icon">✍️</span> Instant Blocker Log</li>
+            </ul>
+          </div>
+          <!-- WhatsApp Card -->
+          <div class="card automation-card whatsapp">
+            <h3>💬 WhatsApp Link</h3>
+            <ul class="auto-list">
+              <li><span class="bullet-icon">💬</span> Daily Progress Logs</li>
+              <li><span class="bullet-icon">⚠️</span> Auto Delay Alerts</li>
+              <li><span class="bullet-icon">📑</span> DPR PDF Auto-Bounces</li>
+              <li><span class="bullet-icon">👥</span> Management Alerts</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Flowchart Canvas -->
+        <div class="flowchart-canvas">
+          <p style="font-size: 0.8rem; color: var(--color-text-muted); align-self: flex-start; margin-bottom: 0.5rem; font-style: italic;">
+            *Click on any step below to see its Inputs, Outputs, Responsible Roles, and System Integrations.
+          </p>
+
+          <!-- Node 1: Client Order -->
+          <div class="flow-node completed" onclick="showNodeDetails('client-order')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">1. Client Order Received</span>
+              <span class="flow-node-subtitle">Contract signed, specifications finalized</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 2: WBS Generator -->
+          <div class="flow-node completed" onclick="showNodeDetails('wbs-generator')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">2. Project Created & WBS Generated</span>
+              <span class="flow-node-subtitle">Breakdown structure: Tower → Floor → Elevation → Zone</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 3: Design Management -->
+          <div class="flow-node inprogress" onclick="showNodeDetails('design-management')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">3. Design Management & Drawing Version Control</span>
+              <span class="flow-node-subtitle">Shop Drawing → Structural Drawing → Approval flow</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 4: BOQ / BOM -->
+          <div class="flow-node completed" onclick="showNodeDetails('boq-bom')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">4. BOQ & BOM Generation</span>
+              <span class="flow-node-subtitle">Material quantities linked to project elements</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <!-- SPLIT: Production vs Procurement -->
+          <div class="flow-arrow" style="height: 40px; width: 100px;">
+            <svg viewBox="0 0 100 40" style="width: 100%; height: 100%; fill: none; stroke: var(--glass-border); stroke-width: 2;">
+              <path d="M50,0 L50,15 M50,15 L20,15 L20,35 M50,15 L80,15 L80,35"/>
+              <polygon points="20,40 16,32 24,32" fill="var(--glass-border)" stroke="none"/>
+              <polygon points="80,40 76,32 84,32" fill="var(--glass-border)" stroke="none"/>
+            </svg>
+          </div>
+
+          <!-- Split Container -->
+          <div style="display: flex; gap: 2rem; width: 100%; justify-content: center; margin: 0.5rem 0;">
+            <!-- Left: Factory Production -->
+            <div style="display: flex; flex-direction: column; align-items: center; width: 45%;">
+              <div class="flow-node inprogress" onclick="showNodeDetails('factory-production')">
+                <div class="flow-node-content">
+                  <span class="flow-node-title">5A. Factory Production</span>
+                  <span class="flow-node-subtitle">Profiles cutting, fabrication, assembly</span>
+                </div>
+                <div class="flow-node-dot"></div>
+              </div>
+            </div>
+            <!-- Right: Material Procurement -->
+            <div style="display: flex; flex-direction: column; align-items: center; width: 45%;">
+              <div class="flow-node inprogress" onclick="showNodeDetails('material-procurement')">
+                <div class="flow-node-content">
+                  <span class="flow-node-title">5B. Material Procurement</span>
+                  <span class="flow-node-subtitle">RFQ, PO, and Supplier tracking</span>
+                </div>
+                <div class="flow-node-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-arrow" style="height: 40px; width: 100px;">
+            <svg viewBox="0 0 100 40" style="width: 100%; height: 100%; fill: none; stroke: var(--glass-border); stroke-width: 2;">
+              <path d="M20,0 L20,20 L50,20 L50,35 M80,0 L80,20 L50,20"/>
+              <polygon points="50,40 46,32 54,32" fill="var(--glass-border)" stroke="none"/>
+            </svg>
+          </div>
+
+          <!-- Node 6: Quality Inspection -->
+          <div class="flow-node inprogress" onclick="showNodeDetails('quality-inspection')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">6. Quality Inspection (QC)</span>
+              <span class="flow-node-subtitle">Dimensional verification & finish tests</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 7: Store / Warehouse -->
+          <div class="flow-node completed" onclick="showNodeDetails('store-warehouse')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">7. Store & Warehouse Management</span>
+              <span class="flow-node-subtitle">Ready materials tagged & stored</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 8: Dispatch Planning -->
+          <div class="flow-node inprogress" onclick="showNodeDetails('dispatch-planning')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">8. Dispatch Planning & Partial Deliveries</span>
+              <span class="flow-node-subtitle">Vehicle assignment & digital Challan tracking</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 9: Site Received -->
+          <div class="flow-node completed" onclick="showNodeDetails('site-received')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">9. Site Material Received</span>
+              <span class="flow-node-subtitle">Site gate-in verification & scan</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 10: Labour Allocation -->
+          <div class="flow-node inprogress" onclick="showNodeDetails('labour-allocation')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">10. Contractor & Labour Allocation</span>
+              <span class="flow-node-subtitle">Daily labour count & contractor logs</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 11: Installation Progress -->
+          <div class="flow-node blocked" onclick="showNodeDetails('installation-progress')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">11. Installation & DPR Engine</span>
+              <span class="flow-node-subtitle">Daily Progress Reports, site photos & issues</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 12: TRDI Auto -->
+          <div class="flow-node reports" onclick="showNodeDetails('trdi-auto')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">12. TRDI Progress Calculation</span>
+              <span class="flow-node-subtitle">Total Realtime Delivery & Installation metric</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 13: Dashboard/WhatsApp -->
+          <div class="flow-node ai" onclick="showNodeDetails('dashboard-whatsapp')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">13. Dashboard & WhatsApp Reports</span>
+              <span class="flow-node-subtitle">Daily summaries & AI analytics to Owner/PM</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 14: Billing / Payments -->
+          <div class="flow-node reports" onclick="showNodeDetails('billing-payments')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">14. Billing & Ledger Payments</span>
+              <span class="flow-node-subtitle">Invoice triggers & Outstanding reports</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+
+          <!-- Node 15: Project Close -->
+          <div class="flow-node completed" onclick="showNodeDetails('project-close')">
+            <div class="flow-node-content">
+              <span class="flow-node-title">15. Project Completed & Closed</span>
+              <span class="flow-node-subtitle">Handover sheets & final measurements</span>
+            </div>
+            <div class="flow-node-dot"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: BuildOS Miro Board Canvas -->
+    <section id="tab-miro-board" class="tab-content active">
+      <!-- Exit Presentation button -->
+      <button class="exit-presentation-btn" onclick="togglePresentationMode()">✖ Exit Presentation Mode</button>
+      
+      <div class="miro-workspace-wrapper">
+        
+        <!-- Miro Floating Controls & Navbar -->
+        <div class="miro-controls-bar">
+          <div class="controls-left">
+            <span class="miro-logo-icon">🗺️</span>
+            <div>
+              <h2 class="miro-board-title">BUILDOS 3DI Product Board</h2>
+              <p class="miro-board-subtitle">Strategy & Implementation Blueprint | 23 Frames</p>
+            </div>
+          </div>
+          
+          <div class="controls-center">
+            <div class="miro-zoom-widget">
+              <button class="miro-btn-circle" onclick="adjustMiroZoom(-0.1)" title="Zoom Out">➖</button>
+              <span class="zoom-value" id="miro-zoom-label">85%</span>
+              <button class="miro-btn-circle" onclick="adjustMiroZoom(0.1)" title="Zoom In">➕</button>
+              <button class="miro-btn-rect" onclick="resetMiroZoom()" title="Reset Zoom">Fit Canvas</button>
+              <button class="miro-btn-rect" onclick="addNewStickyNote()" title="Add Draggable Sticky Note">📌 Add Note</button>
+              <button class="miro-btn-rect" onclick="togglePresentationMode()" title="Toggle Fullscreen Mode">🖥️ Fullscreen</button>
+            </div>
+            
+            <div class="miro-nav-widget">
+              <span class="miro-label">Frame Jump:</span>
+              <select class="miro-select" onchange="jumpToFrame(this.value)">
+                <option value="">-- Jump to --</option>
+                <optgroup label="ZONE 1: Strategy & Problems">
+                  <option value="f1">Frame 1: BUILDOS Vision</option>
+                  <option value="f2">Frame 2: Why BuildOS Needed</option>
+                </optgroup>
+                <optgroup label="ZONE 2: Operational Flow">
+                  <option value="f3">Frame 3: Complete Operating Flow</option>
+                  <option value="f4">Frame 4: TRDI Progress Framework</option>
+                </optgroup>
+                <optgroup label="ZONE 3: Core Modules">
+                  <option value="f5">Frame 5: Dynamic WBS Structure</option>
+                  <option value="f6">Frame 6: Drawing OS & Revision Control</option>
+                  <option value="f7">Frame 7: Mobile Site DPR Wireframe</option>
+                  <option value="f8">Frame 8: Daily DPR Data Flow</option>
+                  <option value="f9">Frame 9: Issue & Hold-up Tracker</option>
+                  <option value="f10">Frame 10: Kanban Task Board</option>
+                  <option value="f11">Frame 11: Resource & Manpower</option>
+                  <option value="f12">Frame 12: Basic Inventory Tracker</option>
+                  <option value="f13">Frame 13: 7-Day Rolling Forecast</option>
+                </optgroup>
+                <optgroup label="ZONE 4: Dashboards & Automation">
+                  <option value="f14">Frame 14: Management Command Centre</option>
+                  <option value="f15">Frame 15: PM Dashboard</option>
+                  <option value="f16">Frame 16: Persona-based App Views</option>
+                  <option value="f17">Frame 17: Automated Alert Engine</option>
+                  <option value="f18">Frame 18: 6:30 PM WhatsApp Summary</option>
+                </optgroup>
+                <optgroup label="ZONE 5: Tech & Roadmap">
+                  <option value="f19">Frame 19: Database & Architecture</option>
+                  <option value="f20">Frame 20: MVP Phase 1 Scope</option>
+                  <option value="f21">Frame 21: Future Phases</option>
+                </optgroup>
+                <optgroup label="ZONE 6: Walkthrough & Summary">
+                  <option value="f22">Frame 22: Practical End-to-End Walkthrough</option>
+                  <option value="f23">Frame 23: Final BuildOS Ecosystem Map</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          
+          <div class="controls-right">
+            <button class="btn btn-outline btn-sm" onclick="toggleNotesDrawer()">📝 Notes & Discovery</button>
+            <div class="miro-legend-pill">
+              <span class="legend-badge navy" title="Setup & Strategy">Setup</span>
+              <span class="legend-badge purple" title="Design & Engineering">Design</span>
+              <span class="legend-badge cyan" title="Logistics & Stores">Delivery</span>
+              <span class="legend-badge blue" title="Installation & Site">Site</span>
+              <span class="legend-badge yellow" title="Analysis & Reports">Reports</span>
+              <span class="legend-badge red" title="Blockers & Critical Issues">Alerts</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Miro Main Viewport -->
+        <div class="miro-viewport" id="miro-viewport-container">
+          <div class="miro-canvas-body" id="miro-canvas-el">
+            
+            <!-- ZONE 1: VISION & CURRENT PROBLEMS -->
+            <div class="miro-canvas-zone" id="miro-zone-1">
+              <div class="miro-zone-title-bar">
+                <h3>ZONE 1: Vision & Current Business Problems</h3>
+                <span class="miro-zone-subtitle">Setting the strategy baseline and diagnosing core organizational pain points</span>
+              </div>
+              <div class="miro-zone-frames">
+                
+                <!-- Frame 1: BUILDOS VISION -->
+                <div class="miro-frame" id="f1">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 1</span>
+                    <h4>BUILDOS Vision & Outcome Matrix</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="vision-banner">
+                      <h2>BUILDOS</h2>
+                      <h3>3DI & Production Tracker</h3>
+                      <p>“One Digital Operating System for Design, Production, Delivery and Installation”</p>
+                    </div>
+                    
+                    <div class="project-story-image-container">
+                      <img src="completed_facade_project_1784052678906.png" class="miro-frame-img" alt="Completed Skyscraper Facade Project">
+                      <span class="img-caption">Paras Avenue - Finished Architectural Glazing & ACP Cladding Mockup</span>
+                    </div>
+
+                    <div class="vision-journey">
+                      <span class="journey-node spec">Client BOQ</span>
+                      <span class="journey-arrow">➔</span>
+                      <span class="journey-node spec">WBS Phasing</span>
+                      <span class="journey-arrow">➔</span>
+                      <span class="journey-node purple">Design Appr</span>
+                      <span class="journey-arrow">➔</span>
+                      <span class="journey-node spec">BOM Release</span>
+                      <span class="journey-arrow">➔</span>
+                      <span class="journey-node cyan">Production</span>
+                      <span class="journey-arrow">➔</span>
+                      <span class="journey-node cyan">Site Deliv</span>
+                      <span class="journey-arrow">➔</span>
+                      <span class="journey-node blue">Installation</span>
+                      <span class="journey-arrow">➔</span>
+                      <span class="journey-node green">Completion</span>
+                    </div>
+
+                    <div class="outcome-cards-grid">
+                      <div class="outcome-card">
+                        <h5>1. One Source of Truth</h5>
+                        <p>All projects, drawing versions, materials and progress tracked in a single central cloud database.</p>
+                      </div>
+                      <div class="outcome-card">
+                        <h5>2. Real-Time Visibility</h5>
+                        <p>Directors and PMs instantly see live TRDI metrics, active bottlenecks, and delays at every floor.</p>
+                      </div>
+                      <div class="outcome-card">
+                        <h5>3. Faster Completion</h5>
+                        <p>Identify contractor shortages, material shipment gaps, and design holds before they halt work.</p>
+                      </div>
+                    </div>
+
+                    <div class="comparison-box">
+                      <div class="comp-col as-is">
+                        <h6>CURRENT OPERATION</h6>
+                        <p>Excel Spreadsheets + Unorganized WhatsApp Chats + Manual Calls & Follow-up</p>
+                      </div>
+                      <div class="comp-col divider">⚡</div>
+                      <div class="comp-col to-be">
+                        <h6>FUTURE OPERATION</h6>
+                        <p>BuildOS Platform + Mobile Field Logs + Live Dashboards + Automatic WhatsApp Summaries</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 2: Why BuildOS Is Needed -->
+                <div class="miro-frame" id="f2">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 2</span>
+                    <h4>Why BuildOS Is Needed (Problems Log)</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="problem-cards-grid">
+                      <div class="problem-card border-red">
+                        <span class="prob-icon">📂</span>
+                        <h5>1. Scattered Project Data</h5>
+                        <p>Different Excel files managed by different project heads, causing duplicate sheets and data isolation.</p>
+                      </div>
+                      <div class="problem-card border-red">
+                        <span class="prob-icon">💬</span>
+                        <h5>2. WhatsApp-Based Progress</h5>
+                        <p>Daily T/R/D/I text updates cannot be parsed, searched, or consolidated into structured reports.</p>
+                      </div>
+                      <div class="problem-card border-red">
+                        <span class="prob-icon">📐</span>
+                        <h5>3. Outdated Drawings</h5>
+                        <p>Site installation teams using old CAD revisions, leading to expensive rework and panel mismatches.</p>
+                      </div>
+                      <div class="problem-card border-amber">
+                        <span class="prob-icon">🗺️</span>
+                        <h5>4. No WBS Visibility</h5>
+                        <p>Client quantities cannot be tracked or audited tower-wise, floor-wise, or elevation-wise.</p>
+                      </div>
+                      <div class="problem-card border-amber">
+                        <span class="prob-icon">📈</span>
+                        <h5>5. Incorrect Forecasting</h5>
+                        <p>Lifetime averages mask recent site velocity changes, causing delayed project completion forecasts.</p>
+                      </div>
+                      <div class="problem-card border-red">
+                        <span class="prob-icon">⚓</span>
+                        <h5>6. Materials & Labour Shortages</h5>
+                        <p>Hardware and manpower gaps are identified only after the installation halts on site.</p>
+                      </div>
+                      <div class="problem-card border-amber">
+                        <span class="prob-icon">👑</span>
+                        <h5>7. Management Dependency</h5>
+                        <p>Directors rely entirely on project coordinators to manually compile status update sheets.</p>
+                      </div>
+                    </div>
+                    <div class="highlight-statement red-box">
+                      <p>“BuildOS converts scattered operational updates into a structured, measurable and predictable project execution system.”</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ZONE 2: COMPLETE OPERATIONAL WORKFLOW -->
+            <div class="miro-canvas-zone" id="miro-zone-2">
+              <div class="miro-zone-title-bar">
+                <h3>ZONE 2: Complete BuildOS Operating Flow & Metrics</h3>
+                <span class="miro-zone-subtitle">Main horizontal pipeline linking all stages and detailing progress measurement rules</span>
+              </div>
+              <div class="miro-zone-frames">
+
+                <!-- Frame 3: COMPLETE OPERATING FLOW -->
+                <div class="miro-frame" id="f3">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 3</span>
+                    <h4>The Complete BuildOS Operating Pipeline</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="workflow-steps-horizontal">
+                      
+                      <div class="wf-step">
+                        <div class="wf-step-header navy">Stage 1: SETUP</div>
+                        <div class="wf-step-body">
+                          <ul>
+                            <li>Create Project Master</li>
+                            <li>Client & Location Data</li>
+                            <li>Baseline Start/End Date</li>
+                            <li>Assign PM & Lead</li>
+                            <li>Import Client BOQ</li>
+                          </ul>
+                          <span class="status-chip completed">Completed</span>
+                        </div>
+                      </div>
+
+                      <div class="wf-connector blue-line">➔</div>
+
+                      <div class="wf-step">
+                        <div class="wf-step-header navy">Stage 2: WBS</div>
+                        <div class="wf-step-body">
+                          <ul>
+                            <li>Split BOQ into Phases</li>
+                            <li>Map Towers & Podium</li>
+                            <li>Map Level / Floor Nodes</li>
+                            <li>Map Elevation Faces</li>
+                            <li>Map Zone Divisions</li>
+                          </ul>
+                          <span class="status-chip completed">Completed</span>
+                        </div>
+                      </div>
+
+                      <div class="wf-connector blue-line">➔</div>
+
+                      <div class="wf-step">
+                        <div class="wf-step-header purple">Stage 3: DESIGN</div>
+                        <div class="wf-step-body">
+                          <ul>
+                            <li>Concept Drawing V1</li>
+                            <li>Structural Drawing</li>
+                            <li>Shop Drawing Approval</li>
+                            <li>Drawing Revision Logs</li>
+                            <li>Active Version Lock</li>
+                          </ul>
+                          <span class="status-chip inprogress">In Progress</span>
+                        </div>
+                      </div>
+
+                      <div class="wf-connector purple-line">➔</div>
+
+                      <div class="wf-step">
+                        <div class="wf-step-header purple">Stage 4: BOM</div>
+                        <div class="wf-step-body">
+                          <ul>
+                            <li>Generate Bill of Mat</li>
+                            <li>Profile Cutlist Release</li>
+                            <li>Release Token / SO</li>
+                            <li>Factory Fab Status</li>
+                            <li>Production Hold Logs</li>
+                          </ul>
+                          <span class="status-chip inprogress">In Progress</span>
+                        </div>
+                      </div>
+
+                      <div class="wf-connector cyan-line">➔</div>
+
+                      <div class="wf-step">
+                        <div class="wf-step-header cyan">Stage 5: DELIVERY</div>
+                        <div class="wf-step-body">
+                          <ul>
+                            <li>Dispatch Loading Plan</li>
+                            <li>Transit Vehicle Details</li>
+                            <li>Site Gate-In Record</li>
+                            <li>Scan Delivered Qty</li>
+                            <li>Receipt Confirmation</li>
+                          </ul>
+                          <span class="status-chip inprogress">In Progress</span>
+                        </div>
+                      </div>
+
+                      <div class="wf-connector cyan-line">➔</div>
+
+                      <div class="wf-step">
+                        <div class="wf-step-header blue">Stage 6: INSTALL</div>
+                        <div class="wf-step-body">
+                          <ul>
+                            <li>Contractor Allocation</li>
+                            <li>Daily Manpower Head</li>
+                            <li>Log Installed panels</li>
+                            <li>Site Photo & Voice log</li>
+                            <li>Quality Audit Review</li>
+                          </ul>
+                          <span class="status-chip atrisk">At Risk</span>
+                        </div>
+                      </div>
+
+                      <div class="wf-connector blue-line">➔</div>
+
+                      <div class="wf-step">
+                        <div class="wf-step-header green">Stage 7: CLOSURE</div>
+                        <div class="wf-step-body">
+                          <ul>
+                            <li>Final Installation</li>
+                            <li>Snag list Inspection</li>
+                            <li>Snag Corrections</li>
+                            <li>Completion Cert</li>
+                            <li>Project Archive</li>
+                          </ul>
+                          <span class="status-chip pending">Pending</span>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 4: TRDI Progress Framework -->
+                <div class="miro-frame" id="f4">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 4</span>
+                    <h4>TRDI Progress Framework & Live Validator</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:1rem;">
+                      Adjust the values below to verify how progress ratios recalculate and validation rules trigger:
+                    </p>
+                    
+                    <div class="trdi-calculator-grid">
+                      <div class="calc-input-group">
+                        <label>Total Scope (T)</label>
+                        <input type="number" id="calc-t" value="5400" oninput="calculateTRDI()">
+                      </div>
+                      <div class="calc-input-group">
+                        <label>Released (R)</label>
+                        <input type="number" id="calc-r" value="4000" oninput="calculateTRDI()">
+                      </div>
+                      <div class="calc-input-group">
+                        <label>Delivered (D)</label>
+                        <input type="number" id="calc-d" value="3000" oninput="calculateTRDI()">
+                      </div>
+                      <div class="calc-input-group">
+                        <label>Installed (I)</label>
+                        <input type="number" id="calc-i" value="2500" oninput="calculateTRDI()">
+                      </div>
+                    </div>
+
+                    <div id="trdi-validation-alert" class="validation-result-alert alert-green">
+                      ✅ TRDI hierarchy matches constraints ($T \ge R \ge D \ge I$)
+                    </div>
+
+                    <div class="trdi-progress-bars">
+                      <div class="prog-bar-container">
+                        <div class="prog-bar-label"><span>Release Progress (R/T)</span><strong id="prog-r-text">74.1%</strong></div>
+                        <div class="prog-track"><div class="prog-fill purple" id="prog-r-bar" style="width: 74.1%;"></div></div>
+                      </div>
+                      <div class="prog-bar-container">
+                        <div class="prog-bar-label"><span>Delivery Progress (D/T)</span><strong id="prog-d-text">55.6%</strong></div>
+                        <div class="prog-track"><div class="prog-fill cyan" id="prog-d-bar" style="width: 55.6%;"></div></div>
+                      </div>
+                      <div class="prog-bar-container">
+                        <div class="prog-bar-label"><span>Installation Progress (I/T)</span><strong id="prog-i-text">46.3%</strong></div>
+                        <div class="prog-track"><div class="prog-fill blue" id="prog-i-bar" style="width: 46.3%;"></div></div>
+                      </div>
+                    </div>
+
+                    <div class="trdi-gaps-grid">
+                      <div class="gap-card">
+                        <span class="gap-num" id="gap-release">1,400</span>
+                        <span class="gap-lbl">Pending Release (T - R)</span>
+                      </div>
+                      <div class="gap-card">
+                        <span class="gap-num" id="gap-delivery">1,000</span>
+                        <span class="gap-lbl">Pending Delivery (R - D)</span>
+                      </div>
+                      <div class="gap-card">
+                        <span class="gap-num" id="gap-install">500</span>
+                        <span class="gap-lbl">Pending Installation (D - I)</span>
+                      </div>
+                    </div>
+
+                    <div class="alert-box-yellow mt-3">
+                      <strong>TRDI Validation Hierarchy Rule:</strong>
+                      <p>T ≥ R ≥ D ≥ I. Installed cannot exceed Delivered. Delivered cannot exceed Released. Released cannot exceed Total.</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ZONE 3: CORE PRODUCT MODULES -->
+            <div class="miro-canvas-zone" id="miro-zone-3">
+              <div class="miro-zone-title-bar">
+                <h3>ZONE 3: Core Product Modules & Site Operations</h3>
+                <span class="miro-zone-subtitle">Granular specifications for design versioning, mobile data logging, and resource/inventory management</span>
+              </div>
+              <div class="miro-zone-frames">
+
+                <!-- Frame 5: DYNAMIC WBS STRUCTURE -->
+                <div class="miro-frame" id="f5">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 5</span>
+                    <h4>Dynamic WBS & BOQ Import Pipeline</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="wbs-interactive-box">
+                      <p class="lbl-small">WBS Tree Roll-up (Paras Avenue - 129):</p>
+                      
+                      <div class="wbs-tree">
+                        <div class="wbs-tree-node level-1">
+                          <span class="tree-bullet">🏢</span>
+                          <span class="node-name">Project: Paras Avenue – 129</span>
+                          <span class="node-trdi">5400 / 4000 / 3000 / 2500</span>
+                        </div>
+                        
+                        <div class="wbs-tree-node level-2">
+                          <span class="tree-bullet">🗼</span>
+                          <span class="node-name">Tower A (WBS-01)</span>
+                          <span class="node-trdi">2400 / 2000 / 1500 / 1200</span>
+                        </div>
+
+                        <div class="wbs-tree-node level-3">
+                          <span class="tree-bullet">🧱</span>
+                          <span class="node-name">Level 03 (WBS-01-L03)</span>
+                          <span class="node-trdi">480 / 420 / 350 / 290</span>
+                        </div>
+
+                        <div class="wbs-tree-node level-4">
+                          <span class="tree-bullet">🧭</span>
+                          <span class="node-name">North Elevation (WBS-01-L03-NE)</span>
+                          <span class="node-trdi">160 / 140 / 120 / 100</span>
+                        </div>
+
+                        <div class="wbs-tree-node level-5 active-node">
+                          <span class="tree-bullet">📍</span>
+                          <span class="node-name">Zone N2 (WBS-01-L03-NE-ZN2)</span>
+                          <span class="node-trdi">48 / 40 / 30 / 25</span>
+                        </div>
+
+                        <div class="wbs-tree-node level-6">
+                          <span class="tree-bullet">💎</span>
+                          <span class="node-name">Unitized Glazing (UG-05)</span>
+                          <span class="node-trdi">24 / 20 / 15 / 12</span>
+                        </div>
+                      </div>
+
+                      <div class="alert-box-info mt-2">
+                        <p>ℹ️ <strong>Child-level updates roll up:</strong> Zone ➔ Elevation ➔ Floor ➔ Tower ➔ Project Dashboard.</p>
+                      </div>
+
+                      <div class="wbs-pipeline-flow">
+                        <h6>WBS CONFIGURATION STEP:</h6>
+                        <p>Import BOQ ➔ Map Items ➔ Split Phases ➔ Add Towers ➔ Set levels ➔ Define Elevation faces ➔ Map Zones ➔ Allocate Quantities ➔ Run Validation ➔ Activate</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 6: DRAWING OS & REVISION CONTROL -->
+                <div class="miro-frame" id="f6">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 6</span>
+                    <h4>Drawing Lifecycle & Revision Lock</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="drawing-revision-simulator">
+                      <div class="drawing-meta">
+                        <strong>Drawing:</strong> Tower A - North Elevation - Level 05
+                        <br><strong>System Ref:</strong> CAD-TWA-NE-L05
+                      </div>
+                      
+                      <!-- Toggler -->
+                      <div class="version-select-box">
+                        <label>Change Local Scanner Version Reference:</label>
+                        <select onchange="simulateDrawingScan(this.value)">
+                          <option value="v3">Version V3 (LATEST)</option>
+                          <option value="v2">Version V2 (SUPERSEDED)</option>
+                          <option value="v1">Version V1 (REJECTED)</option>
+                        </select>
+                      </div>
+
+                      <!-- Flashing alert container -->
+                      <div id="drawing-scan-alert" class="drawing-alert-banner alert-green">
+                        <span class="alert-banner-title">🟢 ACTIVE DRAWING LOCKED</span>
+                        <p>Version V3 is verified as approved. Released for production and site cutting.</p>
+                      </div>
+
+                      <div class="qr-blueprint-container">
+                        <img src="drawing_qr_verification_1784052666246.png" class="miro-frame-img" alt="Drawing QR Blueprint Check">
+                        <div class="qr-overlay-details">
+                          <span>QR Stamp: <strong>SCAN CHECK OK</strong></span>
+                        </div>
+                      </div>
+
+                      <div class="drawing-lifecycle-path">
+                        <h6>LIFECYCLE STAGES:</h6>
+                        <p>D1 (Concept) ➔ D2 (Structural) ➔ D3 (Shop) ➔ D4 (Fab Cutlist) ➔ D5 (As-Built)</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 7: SITE ENGINEER MOBILE DPR -->
+                <div class="miro-frame" id="f7">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 7</span>
+                    <h4>Mobile Site DPR Simulator ("Desi UI")</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="mobile-simulator-layout">
+                      <div class="mobile-frame-border">
+                        <div class="mobile-screen-header">
+                          <span class="signal">📶 5G</span>
+                          <span class="title" id="mob-screen-title">Screen 1/8: Select Project</span>
+                          <span class="battery">🔋 98%</span>
+                        </div>
+                        <div class="mobile-screen-body" id="mob-screen-body-el">
+                          <!-- Dynamic Screen Contents rendered here -->
+                        </div>
+                        <div class="mobile-screen-footer">
+                          <button class="mob-btn back" onclick="prevMobileStep()">⬅ Back</button>
+                          <button class="mob-btn next" onclick="nextMobileStep()" id="mob-next-btn">Next ➡</button>
+                        </div>
+                      </div>
+                      
+                      <div class="mobile-validation-checks">
+                        <h6>App Validations Active:</h6>
+                        <ul>
+                          <li>No negative numbers allowed.</li>
+                          <li>Installed today cannot exceed total available delivered balance.</li>
+                          <li>Site photo upload is mandatory for logging installation.</li>
+                          <li>GPS location stamp matching project zone required.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 8: DAILY DPR DATA FLOW -->
+                <div class="miro-frame" id="f8">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 8</span>
+                    <h4>DPR Data Flow & Approval Scheme</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="data-flow-steps">
+                      <div class="flow-step-box">
+                        <span>1. Site Mobile Entry</span>
+                        <small>Delivered & Installed counts, Photo proof, GPS and issues logs</small>
+                      </div>
+                      <div class="flow-step-arrow">⬇</div>
+                      <div class="flow-step-box">
+                        <span>2. Validation Engine</span>
+                        <small>Checks data hierarchies and negative quantities limits</small>
+                      </div>
+                      <div class="flow-step-arrow">⬇</div>
+                      <div class="flow-step-box">
+                        <span>3. PM Verification Loop</span>
+                        <small>PM checks submission and either Approves or sends back for Correction</small>
+                      </div>
+                      <div class="flow-step-arrow">⬇</div>
+                      <div class="flow-step-box">
+                        <span>4. Roll-Up & Reporting</span>
+                        <small>Updates WBS leaf node, TRDI, Forecast and WhatsApp alert drafts</small>
+                      </div>
+                    </div>
+                    
+                    <div class="fields-captured-list">
+                      <h6>DPR Document Attributes:</h6>
+                      <p>DPR ID | Time Logged | Project Ref | WBS Coordinate | Item Category | Prev Deliv | Today Deliv | Total Deliv | Prev Inst | Today Inst | Total Inst | Photo URL | GPS Coordinates | Active Issues Linked</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 9: ISSUE & HOLD-UP TRACKER -->
+                <div class="miro-frame" id="f9">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 9</span>
+                    <h4>Issue & Site Blocker Tracker</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="issue-lifecycle">
+                      <span class="life-node bg-red">Raised</span> ➔ 
+                      <span class="life-node bg-amber">Categorized</span> ➔ 
+                      <span class="life-node bg-amber">Owner Assigned</span> ➔ 
+                      <span class="life-node bg-blue">SLA Due Date</span> ➔ 
+                      <span class="life-node bg-blue">Resolution Action</span> ➔ 
+                      <span class="life-node bg-green">Verified & Closed</span>
+                    </div>
+
+                    <div class="issue-categories">
+                      <div class="issue-cat-column">
+                        <h6>Design & Drawing</h6>
+                        <ul>
+                          <li>BOQ quantity mismatch</li>
+                          <li>Cutlist profile error</li>
+                          <li>Design revision hold</li>
+                        </ul>
+                      </div>
+                      <div class="issue-cat-column">
+                        <h6>Production & Proc</h6>
+                        <ul>
+                          <li>Material raw stock out</li>
+                          <li>BOM count mismatch</li>
+                          <li>Glazing kiln breakdown</li>
+                        </ul>
+                      </div>
+                      <div class="issue-cat-column">
+                        <h6>Site & Civil Ready</h6>
+                        <ul>
+                          <li>Scaffolding structure unsafe</li>
+                          <li>Power core failure</li>
+                          <li>Civil slab dimensions off</li>
+                        </ul>
+                      </div>
+                      <div class="issue-cat-column">
+                        <h6>Installation Hardware</h6>
+                        <ul>
+                          <li>Bracket anchor shortage</li>
+                          <li>Winches mechanical failure</li>
+                          <li>Sub-contractor shortage</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="impact-fields-grid">
+                      <div class="impact-chip red-box">Production Stopped?</div>
+                      <div class="impact-chip red-box">Delivery Blocked?</div>
+                      <div class="impact-chip red-box">Installation Stopped?</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 10: KANBAN TASK BOARD -->
+                <div class="miro-frame" id="f10">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 10</span>
+                    <h4>Interactive Operational Kanban Board</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <p style="font-size:0.75rem; color:var(--color-text-muted); margin-bottom:0.75rem;">
+                      Click on task buttons to advance them to the next Kanban column status:
+                    </p>
+                    
+                    <div class="kanban-board-layout">
+                      
+                      <div class="kanban-col" id="col-todo">
+                        <div class="col-head bg-red">TO DO</div>
+                        <div class="col-cards" id="cards-todo">
+                          <!-- Tasks dynamically managed -->
+                        </div>
+                      </div>
+
+                      <div class="kanban-col" id="col-progress">
+                        <div class="col-head bg-amber">IN PROGRESS</div>
+                        <div class="col-cards" id="cards-progress">
+                          <!-- Tasks dynamically managed -->
+                        </div>
+                      </div>
+
+                      <div class="kanban-col" id="col-done">
+                        <div class="col-head bg-blue">DONE</div>
+                        <div class="col-cards" id="cards-done">
+                          <!-- Tasks dynamically managed -->
+                        </div>
+                      </div>
+
+                      <div class="kanban-col" id="col-reviewed">
+                        <div class="col-head bg-green">HOD REVIEWED</div>
+                        <div class="col-cards" id="cards-reviewed">
+                          <!-- Tasks dynamically managed -->
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 11: RESOURCE & MANPOWER -->
+                <div class="miro-frame" id="f11">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 11</span>
+                    <h4>Manpower Management & Efficiency Analytics</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="resource-split-layout">
+                      
+                      <div class="contractor-allocations">
+                        <h6>Active Contractor Headcount:</h6>
+                        <div class="alloc-bar flex-space">
+                          <span><strong>Sharma Facade Works</strong></span>
+                          <span>29 / 38 Workers <span class="lbl-alert bg-red">9 Short</span></span>
+                        </div>
+                        <div class="alloc-bar flex-space">
+                          <span><strong>RK Installation</strong></span>
+                          <span>16 / 16 Workers <span class="lbl-alert bg-green">Ok</span></span>
+                        </div>
+                        <div class="alloc-bar flex-space">
+                          <span><strong>Apex Glazing</strong></span>
+                          <span>22 / 24 Workers <span class="lbl-alert bg-amber">2 Short</span></span>
+                        </div>
+                      </div>
+
+                      <div class="efficiency-calculator-block">
+                        <h6>Live Labor Output Calculator:</h6>
+                        <div class="calc-row">
+                          <label>Installed Panels Count:</label>
+                          <input type="number" id="eff-installed" value="135" oninput="calculateEfficiency()">
+                        </div>
+                        <div class="calc-row">
+                          <label>Total Deploy Manpower:</label>
+                          <input type="number" id="eff-manpower" value="29" oninput="calculateEfficiency()">
+                        </div>
+                        <div class="calc-output-display">
+                          <span>Today's Installation Yield:</span>
+                          <h4 id="eff-output-result">4.66 panels / worker</h4>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="alert-box-red mt-2">
+                      ⚠️ <strong>Resource Delay Warning:</strong> Current installer strength is 24% below milestones target baseline.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 12: BASIC INVENTORY TRACKER -->
+                <div class="miro-frame" id="f12">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 12</span>
+                    <h4>Loose Hardware & Materials Inventory</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <table class="inventory-mock-table">
+                      <thead>
+                        <tr>
+                          <th>Item Name</th>
+                          <th>Required</th>
+                          <th>Received</th>
+                          <th>Consumed</th>
+                          <th>Balance</th>
+                          <th>Pending</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="low-stock">
+                          <td>Silicone Tubes (GP)</td>
+                          <td>500</td>
+                          <td>350</td>
+                          <td>280</td>
+                          <td><strong>70</strong></td>
+                          <td>150</td>
+                          <td><span class="badge bg-red">LOW STOCK</span></td>
+                        </tr>
+                        <tr>
+                          <td>EPDM Rubber Gaskets (m)</td>
+                          <td>4500</td>
+                          <td>4000</td>
+                          <td>3100</td>
+                          <td><strong>900</strong></td>
+                          <td>500</td>
+                          <td><span class="badge bg-green">SUFFICIENT</span></td>
+                        </tr>
+                        <tr class="mid-stock">
+                          <td>MS Brackets (T1)</td>
+                          <td>1200</td>
+                          <td>800</td>
+                          <td>720</td>
+                          <td><strong>80</strong></td>
+                          <td>400</td>
+                          <td><span class="badge bg-amber">RUNNING OUT</span></td>
+                        </tr>
+                        <tr>
+                          <td>Facade Anchor Fasteners</td>
+                          <td>4800</td>
+                          <td>4800</td>
+                          <td>3500</td>
+                          <td><strong>1300</strong></td>
+                          <td>0</td>
+                          <td><span class="badge bg-green">SUFFICIENT</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="inventory-equations">
+                      <span>Formula: $Balance = Received - Consumed$</span>
+                      <span> | </span>
+                      <span>$Pending = Required - Received$</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 13: 7-DAY ROLLING FORECAST -->
+                <div class="miro-frame" id="f13">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 13</span>
+                    <h4>7-Day Velocity & Completion Forecast Engine</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="forecast-simulator">
+                      <div class="fore-inputs-flex">
+                        <div class="fore-box">
+                          <label>Total Project Scope:</label>
+                          <input type="number" id="fore-scope" value="5400" oninput="runForecastCalculator()">
+                        </div>
+                        <div class="fore-box">
+                          <label>Total Installed to Date:</label>
+                          <input type="number" id="fore-installed" value="2500" oninput="runForecastCalculator()">
+                        </div>
+                        <div class="fore-box">
+                          <label>Remaining Days in Target:</label>
+                          <input type="number" id="fore-target-days" value="120" oninput="runForecastCalculator()">
+                        </div>
+                      </div>
+
+                      <div class="fore-slider-flex">
+                        <label>Last 7-Day Velocity Average (Panels/Day): <strong id="val-7day-velocity">12</strong></label>
+                        <input type="range" id="slider-velocity" min="0" max="40" value="12" step="1" oninput="runForecastCalculator()">
+                      </div>
+
+                      <div class="forecast-results-dashboard">
+                        <div class="fore-res-card">
+                          <span class="val" id="res-rem-qty">2900</span>
+                          <span class="lbl">Remaining Qty</span>
+                        </div>
+                        <div class="fore-res-card">
+                          <span class="val" id="res-rem-days">242</span>
+                          <span class="lbl">Days Needed</span>
+                        </div>
+                        <div class="fore-res-card">
+                          <span class="val" id="res-daily-target">24.2</span>
+                          <span class="lbl">Target Daily Rate</span>
+                        </div>
+                        <div class="fore-res-card">
+                          <span class="val text-red" id="res-fore-gap">-12.2</span>
+                          <span class="lbl">Daily Deficit Gap</span>
+                        </div>
+                      </div>
+
+                      <div class="forecast-status-banner bg-red" id="forecast-status-pill">
+                        <strong>OFF TRACK FORECAST DELAY: Project is running 122 days behind schedule</strong>
+                      </div>
+
+                      <div class="reco-block" id="forecast-recos">
+                        <h6>Action Recommendation Pushes:</h6>
+                        <ul>
+                          <li>Deploy second shift at Tower A elevations.</li>
+                          <li>Resolve anchor brackets delivery delays.</li>
+                          <li>Open pending design approvals for floor 12 to 14.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ZONE 4: DASHBOARDS, ALERTS & AUTOMATION -->
+            <div class="miro-canvas-zone" id="miro-zone-4">
+              <div class="miro-zone-title-bar">
+                <h3>ZONE 4: Dashboards, Alerts & Automated Integrations</h3>
+                <span class="miro-zone-subtitle">Management dashboards, automated communication engines and executive WhatsApp templates</span>
+              </div>
+              <div class="miro-zone-frames">
+
+                <!-- Frame 14: MANAGEMENT COMMAND CENTRE -->
+                <div class="miro-frame" id="f14">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 14</span>
+                    <h4>Director Command Centre & Portfolio View</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="dash-mini-kpis">
+                      <div class="dkpi"><span>Active Projects</span><strong>27</strong></div>
+                      <div class="dkpi"><span>On Track</span><strong class="text-green">12</strong></div>
+                      <div class="dkpi"><span>At Risk</span><strong class="text-amber">7</strong></div>
+                      <div class="dkpi"><span>Off Track</span><strong class="text-red">5</strong></div>
+                      <div class="dkpi"><span>Critical Issues</span><strong class="text-red">14</strong></div>
+                    </div>
+                    
+                    <div class="project-health-table-container">
+                      <table class="dash-project-table">
+                        <thead>
+                          <tr>
+                            <th>Project</th>
+                            <th>TRDI Breakdown</th>
+                            <th>Install %</th>
+                            <th>Target Date</th>
+                            <th>Forecast Date</th>
+                            <th>Manpower</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="project-row">
+                            <td><strong>Paras Avenue - 129</strong></td>
+                            <td class="trdi-mono">13283 / 9200 / 7100 / 5600</td>
+                            <td>42.2%</td>
+                            <td>31 Dec 2026</td>
+                            <td class="text-red">18 Jan 2027</td>
+                            <td>29 / 38</td>
+                            <td><span class="badge bg-red">OFF TRACK</span></td>
+                          </tr>
+                          <tr class="project-row">
+                            <td><strong>Noida IT Park - Cladding</strong></td>
+                            <td class="trdi-mono">8200 / 8000 / 7800 / 7600</td>
+                            <td>92.7%</td>
+                            <td>15 Aug 2026</td>
+                            <td class="text-green">05 Aug 2026</td>
+                            <td>42 / 40</td>
+                            <td><span class="badge bg-green">ON TRACK</span></td>
+                          </tr>
+                          <tr class="project-row">
+                            <td><strong>Grand Residency Glazing</strong></td>
+                            <td class="trdi-mono">6000 / 5000 / 4200 / 3800</td>
+                            <td>63.3%</td>
+                            <td>30 Sep 2026</td>
+                            <td class="text-amber">12 Oct 2026</td>
+                            <td>18 / 24</td>
+                            <td><span class="badge bg-amber">AT RISK</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 15: PM DASHBOARD -->
+                <div class="miro-frame" id="f15">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 15</span>
+                    <h4>Project Control Dashboard (PM View)</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="pm-dash-flex">
+                      
+                      <div class="pm-info-panel">
+                        <h6>Paras Avenue - Tower A details:</h6>
+                        <ul>
+                          <li><strong>Design Approvals:</strong> 4 drawings pending validation.</li>
+                          <li><strong>Production Queue:</strong> 1,200 panels released, in assembly.</li>
+                          <li><strong>Site Stores:</strong> 300 panels unloaded, awaiting anchors.</li>
+                          <li><strong>Open Blockers:</strong> 3 active issues.</li>
+                        </ul>
+                      </div>
+
+                      <div class="pm-actions-panel">
+                        <h6>PM Operational Actions:</h6>
+                        <div class="action-btn-matrix">
+                          <button class="action-btn" onclick="alert('Creating WBS phase Node...')">➕ Add WBS Node</button>
+                          <button class="action-btn" onclick="alert('Initiating material request...')">📑 Release BOM</button>
+                          <button class="action-btn" onclick="alert('Opening drawing panel...')">📐 Upload Drawing</button>
+                          <button class="action-btn" onclick="alert('Opening issues ledger...')">⚠️ Log site Blocker</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 16: PERSONA-BASED APP VIEWS -->
+                <div class="miro-frame" id="f16">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 16</span>
+                    <h4>Persona-Based Application Access Matrix</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="persona-cards-grid">
+                      <div class="persona-card border-navy">
+                        <h6>1. DIRECTOR / OWNER</h6>
+                        <p><strong>Needs:</strong> Portfolio health dashboards, cash outstandings, delay forecast flags.</p>
+                        <span class="view-tag">Management Centre</span>
+                      </div>
+                      <div class="persona-card border-blue">
+                        <h6>2. PROJECT MANAGER</h6>
+                        <p><strong>Needs:</strong> WBS nodes quantities tracking, task assignment reviews, issues resolution.</p>
+                        <span class="view-tag">PM Workspace</span>
+                      </div>
+                      <div class="persona-card border-purple">
+                        <h6>3. DESIGNER</h6>
+                        <p><strong>Needs:</strong> CAD drawing version logs, client feedback, BOM recipe generation.</p>
+                        <span class="view-tag">Drawing OS Control</span>
+                      </div>
+                      <div class="persona-card border-blue">
+                        <h6>4. SITE ENGINEER</h6>
+                        <p><strong>Needs:</strong> Quick mobile DPR entry, active CAD checking, site photo uploads.</p>
+                        <span class="view-tag">Desi Mobile App</span>
+                      </div>
+                      <div class="persona-card border-cyan">
+                        <h6>5. STORE OFFICER</h6>
+                        <p><strong>Needs:</strong> Goods receipts, loose inventory balances, challan scans.</p>
+                        <span class="view-tag">Inventory ledger</span>
+                      </div>
+                      <div class="persona-card border-red">
+                        <h6>6. SAFETY OFFICER</h6>
+                        <p><strong>Needs:</strong> Logging incident reports, compliance tracking, work stoppage alerts.</p>
+                        <span class="view-tag">Incident Portal</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 17: AUTOMATED ALERT ENGINE -->
+                <div class="miro-frame" id="f17">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 17</span>
+                    <h4>BuildOS Automated Alert Escalation Engine</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="escalation-ladder-flex">
+                      
+                      <div class="triggers-column">
+                        <h6>Triggers Log:</h6>
+                        <div class="trigger-lbl red">Critical Issue Overdue > 24h</div>
+                        <div class="trigger-lbl amber">Inventory Stock below Min</div>
+                        <div class="trigger-lbl red">Superseded Drawing Scanned</div>
+                        <div class="trigger-lbl blue">DPR Not Submitted by 6:00 PM</div>
+                      </div>
+
+                      <div class="ladder-column">
+                        <h6>Escalation Ladder:</h6>
+                        <div class="ladder-step step-4"><span>Level 4: Director Alerted</span><small>Immediate SMS</small></div>
+                        <div class="ladder-step step-3"><span>Level 3: Project Head notified</span><small>WhatsApp Alert</small></div>
+                        <div class="ladder-step step-2"><span>Level 2: Project Manager notified</span><small>Email & Notification</small></div>
+                        <div class="ladder-step step-1"><span>Level 1: Action Owner alerted</span><small>In-App Flag</small></div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 18: 6:30 PM WHATSAPP DAILY SUMMARY -->
+                <div class="miro-frame" id="f18">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 18</span>
+                    <h4>6:30 PM Automated WhatsApp Daily Summary</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="whatsapp-mock-phone">
+                      <div class="wa-header">
+                        <span class="back">◀</span>
+                        <img src="https://via.placeholder.com/30/128C7E/FFF?text=B" class="wa-avatar" alt="BuildOS Notification Agent">
+                        <div>
+                          <strong>BuildOS Alerts</strong>
+                          <small>Online</small>
+                        </div>
+                      </div>
+                      
+                      <div class="wa-chat-area">
+                        <div class="wa-msg-bubble">
+                          <h6 class="wa-msg-title">🟢 BuildOS Daily Project Summary</h6>
+                          <div class="wa-msg-meta">
+                            <strong>Date:</strong> 16 July 2026
+                            <br><strong>Project:</strong> Paras Avenue – 129
+                          </div>
+                          
+                          <div class="wa-msg-body">
+                            <strong>TRDI Scope Status:</strong>
+                            <br><span id="wa-trdi-val">13,283 / 9,200 / 7,100 / 5,600</span>
+                            
+                            <br><br><strong>Today's Operations Log:</strong>
+                            <br>• Delivered Today: <span id="wa-del-today">120</span> panels
+                            <br>• Installed Today: <span id="wa-ins-today">86</span> panels
+                            
+                            <br><br><strong>Analytics Forecast:</strong>
+                            <br>• 7-Day Velocity: <span id="wa-7day-vel">12</span> panels/day
+                            <br>• Project Target Rate: <span id="wa-target-rate">18</span> panels/day
+                            <br>• Estimated Forecast Delay: <span id="wa-delay-val">18 days behind</span>
+                            
+                            <br><br><strong>Active Blockers:</strong>
+                            <br>❌ Winch machine failure (Tower A)
+                            <br>❌ Shop drawing V3 pending approval
+                            <br>❌ North elevation civil slab offset
+                          </div>
+                          
+                          <div class="wa-msg-status flex-space">
+                            <span>Status: <strong class="text-red" id="wa-status-text">OFF TRACK</strong></span>
+                            <span class="time">18:30 ✓✓</span>
+                          </div>
+                          
+                          <div class="wa-msg-actions">
+                            <button onclick="alert('Opening Web Dashboard...')">View Dashboard</button>
+                            <button onclick="alert('Opening Issues Log...')">View Open Issues</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ZONE 5: TECHNICAL ARCHITECTURE & ROADMAP -->
+            <div class="miro-canvas-zone" id="miro-zone-5">
+              <div class="miro-zone-title-bar">
+                <h3>ZONE 5: Technical System Design & Roadmap</h3>
+                <span class="miro-zone-subtitle">Under the hood schemas and the MVP-to-scale milestones schedule</span>
+              </div>
+              <div class="miro-zone-frames">
+
+                <!-- Frame 19: DATABASE & SYSTEM ARCHITECTURE -->
+                <div class="miro-frame" id="f19">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 19</span>
+                    <h4>Technical System Architecture & Database Groups</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="tech-stack-layout">
+                      <div class="stack-layer user-layer">
+                        <strong>USER CHANNELS:</strong> Management Dashboard | PM Portal | Designer Panel | Site Mobile App | Store QR Form
+                      </div>
+                      <div class="stack-layer api-layer">
+                        <strong>API GATEWAY & LOGIC:</strong> Project Engine | WBS Roll-up | Drawing Control | TRDI calculator | DPR Validator | Forecast | WhatsApp API
+                      </div>
+                      
+                      <div class="database-schema-grid">
+                        <div class="db-group">
+                          <h6>PROJECT DB</h6>
+                          <ul>
+                            <li>Projects metadata</li>
+                            <li>Team assignments</li>
+                            <li>Client rates master</li>
+                          </ul>
+                        </div>
+                        <div class="db-group">
+                          <h6>WBS STRUCTURE DB</h6>
+                          <ul>
+                            <li>Tower/Floor nodes</li>
+                            <li>Leaf quantities</li>
+                            <li>WBS roll-up states</li>
+                          </ul>
+                        </div>
+                        <div class="db-group">
+                          <h6>DESIGN DB</h6>
+                          <ul>
+                            <li>Drawing register</li>
+                            <li>CAD Version Lock</li>
+                            <li>Approval log tables</li>
+                          </ul>
+                        </div>
+                        <div class="db-group">
+                          <h6>EXECUTION LOGS DB</h6>
+                          <ul>
+                            <li>Production releases</li>
+                            <li>Challans & Dispatches</li>
+                            <li>Site received sheets</li>
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <div class="stack-layer integrations-layer">
+                        <strong>EXTERNAL SERVICES:</strong> Google Sheets import engine | Twilio WhatsApp API | Cloudinary photos storage
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 20: MVP PHASE 1 SCOPE -->
+                <div class="miro-frame" id="f20">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 20</span>
+                    <h4>MVP Phase 1 Sprints Roadmap</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="roadmap-timeline">
+                      <div class="timeline-header flex-space">
+                        <strong>Timeline: 15 July 2026 to 14 August 2026</strong>
+                        <span class="badge bg-green">Target Locked</span>
+                      </div>
+                      
+                      <div class="sprint-bar">
+                        <strong>Sprint 1: Project Setup & BOQ Import</strong>
+                        <p>Import BOQ parser, user authentication profile setup, location coordinates logs.</p>
+                      </div>
+                      <div class="sprint-bar">
+                        <strong>Sprint 2: WBS Tree Mapping</strong>
+                        <p>Generate Tower ➔ Floor ➔ elevation node structures, dynamic Leaf quantities allocation logic.</p>
+                      </div>
+                      <div class="sprint-bar">
+                        <strong>Sprint 3: Design Control & Version Lock</strong>
+                        <p>Create PDF drawings uploader, active version lock trigger, old CAD scans warning.</p>
+                      </div>
+                      <div class="sprint-bar">
+                        <strong>Sprint 4: Desi Mobile DPR App</strong>
+                        <p>Delivered/Installed quantity counters forms, photo proof uploads, offline queues support.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 21: FUTURE PHASES -->
+                <div class="miro-frame" id="f21">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 21</span>
+                    <h4>Future Platform Expansion Roadmap</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="future-phases-columns">
+                      <div class="fcol phase-2">
+                        <h6>Phase 2: Operational Intel</h6>
+                        <ul>
+                          <li>Detailed stores bin locations</li>
+                          <li>Purchase tracking & POs</li>
+                          <li>Contractor measurement reconciliation</li>
+                          <li>Gatepass digital checks</li>
+                        </ul>
+                      </div>
+                      <div class="fcol phase-3">
+                        <h6>Phase 3: AI & Automation</h6>
+                        <ul>
+                          <li>AI computer vision photo audit</li>
+                          <li>Automatic CAD to WBS extraction</li>
+                          <li>Weather forecast risk predictor</li>
+                          <li>Voice logs parser for DPR</li>
+                        </ul>
+                      </div>
+                      <div class="fcol phase-4">
+                        <h6>Phase 4: Digital Twin</h6>
+                        <ul>
+                          <li>BIM model interactive render</li>
+                          <li>3D WBS zone status checks</li>
+                          <li>Barcoded tracking per glass panel</li>
+                          <li>Realtime panels installation map</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ZONE 6: PRACTICAL EXAMPLE & SUMMARY -->
+            <div class="miro-canvas-zone" id="miro-zone-6">
+              <div class="miro-zone-title-bar">
+                <h3>ZONE 6: Practical End-to-End Walkthrough Scenario</h3>
+                <span class="miro-zone-subtitle">Step-by-step trace of a facade panel lifecycle and the unified BuildOS ecosystem map</span>
+              </div>
+              <div class="miro-zone-frames">
+
+                <!-- Frame 22: PRACTICAL WALKTHROUGH -->
+                <div class="miro-frame" id="f22">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 22</span>
+                    <h4>Paras Avenue – 129 Walkthrough Scenario</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="scenario-steps-container">
+                      
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">1</span>
+                        <div>
+                          <strong>Client BOQ Received:</strong>
+                          <p>13,283 SQM of Unitized Glazing uploaded into the system master.</p>
+                        </div>
+                      </div>
+
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">2</span>
+                        <div>
+                          <strong>WBS Breakdown Configured:</strong>
+                          <p>Allocated 312 panels specifically to <em>Tower A ➔ Level 05 ➔ North Elevation ➔ Zone N2</em>.</p>
+                        </div>
+                      </div>
+
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">3</span>
+                        <div>
+                          <strong>Design Locked:</strong>
+                          <p>Shop Drawing version V3 approved by the client architect, locked as the Active version.</p>
+                        </div>
+                      </div>
+
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">4</span>
+                        <div>
+                          <strong>Production released:</strong>
+                          <p>Cutlist generated, 250 panels released to the factory assembly queue.</p>
+                        </div>
+                      </div>
+
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">5</span>
+                        <div>
+                          <strong>Dispatched & Delivered:</strong>
+                          <p>Truck arrived on site; store manager scans QR tags, registering 180 panels received.</p>
+                        </div>
+                      </div>
+
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">6</span>
+                        <div>
+                          <strong>Daily DPR Log Submitted:</strong>
+                          <p>Site engineer submits today's report: Delivered: +20, Installed: +15, uploads panel photo.</p>
+                        </div>
+                      </div>
+
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">7</span>
+                        <div>
+                          <strong>WBS Recalculated:</strong>
+                          <p>Zone N2 TRDI updates to <strong>312 / 250 / 200 / 135</strong>. Numbers roll up to the central dashboards.</p>
+                        </div>
+                      </div>
+
+                      <div class="scenario-step-item">
+                        <span class="step-num-icon">8</span>
+                        <div>
+                          <strong>WhatsApp Summary Dispatched:</strong>
+                          <p>System recalculates the forecast, flags delayed status, and alerts directors on WhatsApp at 6:30 PM.</p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frame 23: FINAL BUILDOS ECOSYSTEM MAP -->
+                <div class="miro-frame" id="f23">
+                  <div class="miro-frame-header">
+                    <span class="miro-frame-num">Frame 23</span>
+                    <h4>Final BuildOS Integrated Hub Map</h4>
+                  </div>
+                  <div class="miro-frame-body">
+                    <div class="hub-map-container">
+                      <div class="hub-center-logo">
+                        <h3>BUILDOS</h3>
+                        <small>Central Core Database</small>
+                      </div>
+                      
+                      <!-- Connected nodes circle -->
+                      <div class="hub-satellite-nodes">
+                        <span class="sat-node-pill">Project OS</span>
+                        <span class="sat-node-pill">Design OS</span>
+                        <span class="sat-node-pill">Production OS</span>
+                        <span class="sat-node-pill">Delivery OS</span>
+                        <span class="sat-node-pill">Site OS</span>
+                        <span class="sat-node-pill">Issue OS</span>
+                        <span class="sat-node-pill">Resource OS</span>
+                        <span class="sat-node-pill">Inventory OS</span>
+                        <span class="sat-node-pill">Task OS</span>
+                        <span class="sat-node-pill">Analytics OS</span>
+                        <span class="sat-node-pill">Notification OS</span>
+                        <span class="sat-node-pill">Management OS</span>
+                      </div>
+                    </div>
+
+                    <div class="hub-footer-quotes">
+                      <p class="tagline">“Right Drawing. Right Material. Right Manpower. Right Location. Right Time.”</p>
+                      <strong>BUILDOS: From BOQ to Building Completion</strong>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE OUT DRAWER FOR MEETING MINUTES (ORIGINAL TAB 3 FUNCTION) -->
+    <div class="miro-notes-drawer closed" id="miro-notes-drawer-el">
+      <div class="drawer-header flex-space">
+        <h3>Meeting Notes & Scope Discovery</h3>
+        <button class="miro-btn-circle" onclick="toggleNotesDrawer()">✖</button>
+      </div>
+      <div class="drawer-body">
+        
+        <div class="btn-group mb-3">
+          <button class="btn btn-sm btn-outline" onclick="clearMiro()">Clear Canvas</button>
+          <button class="btn btn-sm" onclick="exportMiro()">Export Notes</button>
+        </div>
+
+        <div class="miro-box current">
+          <label>🔴 Current Process (As-Is)</label>
+          <textarea class="miro-textarea" id="miro-asis" placeholder="Client is using 3 separate excels..."></textarea>
+        </div>
+
+        <div class="miro-box problems mt-3">
+          <label>⚠️ Problems & Pain Points</label>
+          <textarea class="miro-textarea" id="miro-problems" placeholder="- Site team works on old drawings..."></textarea>
+        </div>
+
+        <div class="miro-box future mt-3">
+          <label>🟢 Future Process (To-Be)</label>
+          <textarea class="miro-textarea" id="miro-tobe" placeholder="- Scan code to verify drawing validity..."></textarea>
+        </div>
+
+        <div class="miro-box phase1 mt-3">
+          <label>🔵 Phase 1 Modules</label>
+          <textarea class="miro-textarea" id="miro-phase1" placeholder="1. Design Version Lock..."></textarea>
+        </div>
+
+        <div class="miro-box futuremodules mt-3">
+          <label>🟣 Future Modules</label>
+          <textarea class="miro-textarea" id="miro-futuremodules" placeholder="- Factory Kanban Integration..."></textarea>
+        </div>
+
+        <h4 class="mt-4 border-bottom pb-2">Strategic Meeting Questions</h4>
+        
+        <div class="question-item mt-2">
+          <span class="q-lbl">Q1: Sabse pehla kaunsa module banana hai?</span>
+          <input type="text" class="question-input" id="q-priority-module" placeholder="Type answer...">
+        </div>
+
+        <div class="question-item mt-2">
+          <span class="q-lbl">Q2: Agar sirf ek main problem solve karni ho, to wo kaunsi hai?</span>
+          <input type="text" class="question-input" id="q-one-problem" placeholder="Type answer...">
+        </div>
+
+        <div class="question-item mt-2">
+          <span class="q-lbl">Q3: Owner subah kaunsi primary report dekhta hai?</span>
+          <input type="text" class="question-input" id="q-owner-report" placeholder="Type answer...">
+        </div>
+
+        <div class="question-item mt-2">
+          <span class="q-lbl">Q4: WhatsApp updates format?</span>
+          <input type="text" class="question-input" id="q-whatsapp-format" placeholder="Type answer...">
+        </div>
+
+        <div class="question-item mt-2">
+          <span class="q-lbl">Q5: 3 mahine baad success criteria?</span>
+          <input type="text" class="question-input" id="q-success-criteria" placeholder="Type answer...">
+        </div>
+
+        <div class="question-item mt-2">
+          <span class="q-lbl">Q6: RDash features you liked?</span>
+          <input type="text" class="question-input" id="q-rdash-like" placeholder="Type answer...">
+        </div>
+
+        <div class="question-item mt-2">
+          <span class="q-lbl">Q7: Gaps in RDash?</span>
+          <input type="text" class="question-input" id="q-rdash-dislike" placeholder="Type answer...">
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 4: Roles & Views Matrix -->
+    <section id="tab-roles" class="tab-content">
+      <div class="roles-selector-container">
+        <h2 style="font-size:1.5rem; font-weight:700;">Roles & Dashboards Matrix</h2>
+        <p style="font-size:0.875rem; color: var(--color-text-muted);">Select a user role to see their customized workspace dashboard view and their highlight path in the project lifecycle.</p>
+        
+        <div class="roles-grid">
+          <button class="role-btn active" id="btn-owner" onclick="switchRole('owner')">Owner</button>
+          <button class="role-btn" id="btn-pm" onclick="switchRole('pm')">Project Manager</button>
+          <button class="role-btn" id="btn-design" onclick="switchRole('design')">Design Team</button>
+          <button class="role-btn" id="btn-factory" onclick="switchRole('factory')">Factory Team</button>
+          <button class="role-btn" id="btn-store" onclick="switchRole('store')">Store/Warehouse</button>
+          <button class="role-btn" id="btn-dispatch" onclick="switchRole('dispatch')">Dispatch Team</button>
+          <button class="role-btn" id="btn-site" onclick="switchRole('site')">Site Engineer</button>
+          <button class="role-btn" id="btn-contractor" onclick="switchRole('contractor')">Contractor</button>
+        </div>
+      </div>
+
+      <!-- Dashboard Mockup -->
+      <div class="dashboard-display">
+        <div class="card dashboard-sidebar">
+          <h4 style="color:var(--color-accent); font-size:0.8rem; text-transform:uppercase; margin-bottom: 0.5rem;">BuildOS Modules</h4>
+          <div class="sidebar-item active">🏠 ProjectOS Dashboard</div>
+          <div class="sidebar-item">📐 DesignOS View</div>
+          <div class="sidebar-item">🏭 FactoryOS Tracking</div>
+          <div class="sidebar-item">📦 InventoryOS Ledger</div>
+          <div class="sidebar-item">🚧 SiteOS App Control</div>
+          <div class="sidebar-item">🤖 AIOS Analytics</div>
+        </div>
+
+        <div class="dashboard-canvas">
+          <div class="dashboard-canvas-header">
+            <h3 id="role-dashboard-title">Owner Dashboard View</h3>
+            <span class="badge tobe" id="role-dashboard-badge">Executive Level</span>
+          </div>
+
+          <!-- Widgets -->
+          <div class="dashboard-widgets" id="dashboard-widgets-container">
+            <!-- Dynamic Widget cards added here -->
+          </div>
+
+          <!-- Detail Panel -->
+          <div class="detail-pane" id="role-detail-pane">
+            <!-- Dynamic details added here -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive Node Detail Modal -->
+  <div class="modal-backdrop" id="node-modal-backdrop" onclick="closeNodeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeNodeModal(null)">&times;</button>
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">Node Title</h2>
+        <p class="modal-subtitle" id="modal-subtitle">Node Subtitle</p>
+      </div>
+      <div class="modal-body">
+        <div>
+          <h4 class="modal-section-title">Description</h4>
+          <p class="modal-text" id="modal-desc">Detailed explanation of the process step.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <h4 class="modal-section-title">Inputs Required</h4>
+            <div class="modal-tags" id="modal-inputs">
+              <!-- Tags -->
+            </div>
+          </div>
+          <div>
+            <h4 class="modal-section-title">Outputs Produced</h4>
+            <div class="modal-tags" id="modal-outputs">
+              <!-- Tags -->
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="modal-section-title">Responsible Roles</h4>
+          <div class="modal-tags" id="modal-roles">
+            <!-- Tags -->
+          </div>
+        </div>
+        <div id="modal-automation-section">
+          <h4 class="modal-section-title">AI & WhatsApp Automations</h4>
+          <p class="modal-text" id="modal-automation" style="font-style: italic; color: var(--color-ai);"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
