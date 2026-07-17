@@ -1609,75 +1609,420 @@
                   </div>
                 </div>
 
-                <!-- Frame 20: MVP PHASE 1 SCOPE -->
+                <!-- Frame 20: PHASE-WISE INTERACTIVE ROADMAP -->
                 <div class="miro-frame" id="f20">
                   <div class="miro-frame-header">
                     <span class="miro-frame-num">Frame 20</span>
-                    <h4>MVP Phase 1 Sprints Roadmap</h4>
+                    <h4>Axsys BuildOS — Interactive Phase-wise Delivery Roadmap</h4>
                   </div>
                   <div class="miro-frame-body">
-                    <div class="roadmap-timeline">
-                      <div class="timeline-header flex-space">
-                        <strong>Timeline: 15 July 2026 to 14 August 2026</strong>
-                        <span class="badge bg-green">Target Locked</span>
+
+                    <!-- Phase Tabs -->
+                    <div class="phase-tab-switcher">
+                      <button class="phase-tab-btn active" onclick="switchPhaseTab('ph1')" id="ptab-ph1">🟢 Phase 1: MVP</button>
+                      <button class="phase-tab-btn" onclick="switchPhaseTab('ph2')" id="ptab-ph2">🔵 Phase 2: Operations</button>
+                      <button class="phase-tab-btn" onclick="switchPhaseTab('ph3')" id="ptab-ph3">🟣 Phase 3: Automation</button>
+                      <button class="phase-tab-btn" onclick="switchPhaseTab('ph4')" id="ptab-ph4">🟡 Phase 4: Scale</button>
+                    </div>
+
+                    <!-- PHASE 1 PANEL -->
+                    <div class="phase-panel" id="ph1">
+                      <div class="phase-panel-header" style="background: linear-gradient(135deg, #1a4a2e, #2d7a4f);">
+                        <div>
+                          <h5>Phase 1: MVP — Core Execution Engine</h5>
+                          <p>Replaces MILESTONE sheet + per-project design tabs + WhatsApp T/R/D/I updates</p>
+                        </div>
+                        <div class="phase-meta-box">
+                          <span class="phase-badge green">₹40,000/month</span>
+                          <span class="phase-badge green">30 Days</span>
+                          <span class="phase-badge green">🟢 ACTIVE</span>
+                        </div>
                       </div>
-                      
-                      <div class="sprint-bar">
-                        <strong>Sprint 1: Project Setup & BOQ Import</strong>
-                        <p>Import BOQ parser, user authentication profile setup, location coordinates logs.</p>
-                      </div>
-                      <div class="sprint-bar">
-                        <strong>Sprint 2: WBS Tree Mapping</strong>
-                        <p>Generate Tower ➔ Floor ➔ elevation node structures, dynamic Leaf quantities allocation logic.</p>
-                      </div>
-                      <div class="sprint-bar">
-                        <strong>Sprint 3: Design Control & Version Lock</strong>
-                        <p>Create PDF drawings uploader, active version lock trigger, old CAD scans warning.</p>
-                      </div>
-                      <div class="sprint-bar">
-                        <strong>Sprint 4: Desi Mobile DPR App</strong>
-                        <p>Delivered/Installed quantity counters forms, photo proof uploads, offline queues support.</p>
+                      <div class="phase-panel-body">
+                        <div class="sprint-cards-grid">
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Sprint 1 — Week 1-2</div>
+                            <div class="sprint-card-title">📋 Project Setup + BOQ Import</div>
+                            <div class="sprint-replaces">Replaces: Per-project Excel sheets (M3M, Vegas, Sky Xotic tabs)</div>
+                            <ul class="sprint-tasks">
+                              <li>Create project with Client, Location, Dates, PM, Designer</li>
+                              <li>BOQ Excel upload + Column Mapping UI</li>
+                              <li>BOQ items list: Item No, Description, Unit, Qty</li>
+                              <li>Supabase Auth — role-based login (Director/PM/Designer/Engineer)</li>
+                              <li>User management panel</li>
+                            </ul>
+                            <div class="sprint-outcome">✅ Client uploads their first real BOQ and sees it structured digitally</div>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Sprint 2 — Week 2-3</div>
+                            <div class="sprint-card-title">📊 MILESTONE Command Centre Dashboard</div>
+                            <div class="sprint-replaces">Replaces: MILESTONE sheet (50+ projects master tracker)</div>
+                            <ul class="sprint-tasks">
+                              <li>All projects visible as cards on one screen</li>
+                              <li>Status badge: ON TRACK / OFF TRACK / AT RISK / HOLD</li>
+                              <li>Live T/R/D/I numbers per project</li>
+                              <li>Assigned PM + Designer shown on card</li>
+                              <li>Filter by: City / Zone / PM / Status</li>
+                              <li>Click project → go to project detail</li>
+                            </ul>
+                            <div class="sprint-outcome">✅ Director sees all 50 projects on one screen — no Excel needed</div>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Sprint 3 — Week 3-4</div>
+                            <div class="sprint-card-title">📐 Design Stage Tracker</div>
+                            <div class="sprint-replaces">Replaces: Color-coded design columns (Concept/Structure/Shop/Colour/MS/Glass/BOM)</div>
+                            <ul class="sprint-tasks">
+                              <li>Per BOQ item: 7 design stages tracked</li>
+                              <li>Stage status: Pending → In Progress → Approved → Rejected</li>
+                              <li>Drawing file upload per stage (PDF, versioned)</li>
+                              <li>V1/V2/V3 version lock — only one active</li>
+                              <li>Target date per stage with overdue alert</li>
+                              <li>Designer assigned per item</li>
+                            </ul>
+                            <div class="sprint-outcome">✅ No more outdated drawings on site — version lock enforced digitally</div>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Sprint 4 — Week 4 + Flutter</div>
+                            <div class="sprint-card-title">📱 Mobile DPR App</div>
+                            <div class="sprint-replaces">Replaces: WhatsApp T/R/D/I text messages from site engineers</div>
+                            <ul class="sprint-tasks">
+                              <li>Select Project → Select Item → View yesterday balance</li>
+                              <li>Enter: Delivered today + Installed today</li>
+                              <li>Upload site photo (mandatory) + GPS auto-stamp</li>
+                              <li>Flag blocker (yes/no) with description</li>
+                              <li>Offline queue — syncs when network available</li>
+                              <li>Submit → MILESTONE auto-updates live</li>
+                            </ul>
+                            <div class="sprint-outcome">✅ Naushad submits DPR in 30 seconds — director sees it instantly</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
+
+                    <!-- PHASE 2 PANEL -->
+                    <div class="phase-panel" id="ph2" style="display:none;">
+                      <div class="phase-panel-header" style="background: linear-gradient(135deg, #1a2a4a, #2d4a7a);">
+                        <div>
+                          <h5>Phase 2: Operations — Resource & Issue Management</h5>
+                          <p>Replaces: Deepak Workbook + AJAY ji Issues Sheet + ZONE sheet + HANDOVER sheet</p>
+                        </div>
+                        <div class="phase-meta-box">
+                          <span class="phase-badge blue">₹70,000-80,000/month</span>
+                          <span class="phase-badge blue">Month 2-3</span>
+                          <span class="phase-badge amber">🔵 PLANNED</span>
+                        </div>
+                      </div>
+                      <div class="phase-panel-body">
+                        <div class="sprint-cards-grid">
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 5</div>
+                            <div class="sprint-card-title">👥 Resource OS — Staff Allocation</div>
+                            <div class="sprint-replaces">Replaces: PROJECT STAFF NEW sheet (DGM/ZPM/PM/Supervisor color matrix)</div>
+                            <ul class="sprint-tasks">
+                              <li>Org hierarchy: DGM → ZPM → PM → Supervisor → Workers</li>
+                              <li>Per project: who is assigned in which role</li>
+                              <li>Person profile: how many projects assigned</li>
+                              <li>Alert: project with no PM or Supervisor assigned</li>
+                              <li>Transfer person between projects</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 6</div>
+                            <div class="sprint-card-title">🚨 Issue & Blocker Tracker</div>
+                            <div class="sprint-replaces">Replaces: AJAY ji sheet (Site Name / Issue / Solution log)</div>
+                            <ul class="sprint-tasks">
+                              <li>Raise issue: Site | Category | Description | Photo</li>
+                              <li>Assign owner + set deadline</li>
+                              <li>Status: OPEN / IN PROGRESS / RESOLVED / HOLD</li>
+                              <li>48hr no-action → WhatsApp alert to PM + DGM</li>
+                              <li>Filter by: Site / Status / Owner / Date</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 7</div>
+                            <div class="sprint-card-title">🏗️ Contractor Allocation Board</div>
+                            <div class="sprint-replaces">Replaces: Deepak Workbook (contractor × project × worker matrix)</div>
+                            <ul class="sprint-tasks">
+                              <li>Contractor master list with skill and city</li>
+                              <li>Per project: contractor + worker count required vs actual</li>
+                              <li>Shortage alert if actual &lt; required</li>
+                              <li>Productivity: panels installed ÷ workers present</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 8 + 9</div>
+                            <div class="sprint-card-title">📋 Handover + Zone Control</div>
+                            <div class="sprint-replaces">Replaces: HANDOVER sheet + ZONE sheet</div>
+                            <ul class="sprint-tasks">
+                              <li>Project closure checklist: Test/Trace, Paper Sign, Compliance</li>
+                              <li>Assign responsible person per checklist item</li>
+                              <li>Status: PENDING → DONE with date stamp</li>
+                              <li>Zone cards: Gurgaon-11 / Noida-12 / Delhi / etc.</li>
+                              <li>AT RISK projects shown at top of zone</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PHASE 3 PANEL -->
+                    <div class="phase-panel" id="ph3" style="display:none;">
+                      <div class="phase-panel-header" style="background: linear-gradient(135deg, #2a1a4a, #5a2d7a);">
+                        <div>
+                          <h5>Phase 3: Automation & Intelligence</h5>
+                          <p>Replaces: Manual 6:30 PM WhatsApp reporting + Fitter attendance sheet + Manual forecasting</p>
+                        </div>
+                        <div class="phase-meta-box">
+                          <span class="phase-badge purple">₹1,00,000/month</span>
+                          <span class="phase-badge purple">Month 4-5</span>
+                          <span class="phase-badge amber">🟣 FUTURE</span>
+                        </div>
+                      </div>
+                      <div class="phase-panel-body">
+                        <div class="sprint-cards-grid">
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 10</div>
+                            <div class="sprint-card-title">🔧 Fitter Attendance & Deployment App</div>
+                            <div class="sprint-replaces">Replaces: PROJECT FITTER NEW + fitter sheet (Delhi/Noida/Gurgaon daily tracking)</div>
+                            <ul class="sprint-tasks">
+                              <li>City-wise fitter master: E-Code, Name, Team, Skill</li>
+                              <li>Daily mobile check-in: Present / Leave / On the Way</li>
+                              <li>Fitter → Project assignment (who is where today)</li>
+                              <li>Daily summary: Total Present / Leave / Transit per city</li>
+                              <li>Weekly attendance report auto-generated</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 11</div>
+                            <div class="sprint-card-title">📲 Automated WhatsApp Summary Engine</div>
+                            <div class="sprint-replaces">Replaces: Manual 6:30 PM WhatsApp compilation (60+ hours/month saved)</div>
+                            <ul class="sprint-tasks">
+                              <li>Daily 6:30 PM auto-compile from all DPR submissions</li>
+                              <li>Per project: T/R/D/I + today additions + active blockers</li>
+                              <li>Sent to: Director Group / PM Group / Zone Group</li>
+                              <li>Powered by Whatshub.live API</li>
+                              <li>Zero manual work — fully automatic</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 12</div>
+                            <div class="sprint-card-title">📈 7-Day Rolling Forecast</div>
+                            <div class="sprint-replaces">Replaces: Manual "kab complete hoga?" guesswork</div>
+                            <ul class="sprint-tasks">
+                              <li>Based on last 7 days installation speed (not lifetime average)</li>
+                              <li>Predicted completion date per project</li>
+                              <li>Green: on track / Yellow: at risk / Red: will miss deadline</li>
+                              <li>Alert if forecast shows delay &gt; 2 weeks</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 13</div>
+                            <div class="sprint-card-title">🏢 Multi-Tenant Expansion</div>
+                            <div class="sprint-replaces">Adds: Art-N-Glass + Green Fenestration as separate tenants</div>
+                            <ul class="sprint-tasks">
+                              <li>Same platform — separate login per company</li>
+                              <li>Group-level director dashboard (all 3 companies)</li>
+                              <li>Art-N-Glass: glass tracking with thickness, coating, Isokhan No</li>
+                              <li>3x revenue: ₹40k × 3 companies = ₹1.2L/month</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PHASE 4 PANEL -->
+                    <div class="phase-panel" id="ph4" style="display:none;">
+                      <div class="phase-panel-header" style="background: linear-gradient(135deg, #3a2a1a, #7a5a2d);">
+                        <div>
+                          <h5>Phase 4: Scale, Digital Twin & Client Portal</h5>
+                          <p>Transforms BuildOS into a competitive differentiator and SaaS product for the facade industry</p>
+                        </div>
+                        <div class="phase-meta-box">
+                          <span class="phase-badge gold">₹1.5L-2L/month</span>
+                          <span class="phase-badge gold">Month 6+</span>
+                          <span class="phase-badge amber">🟡 VISION</span>
+                        </div>
+                      </div>
+                      <div class="phase-panel-body">
+                        <div class="sprint-cards-grid">
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 14</div>
+                            <div class="sprint-card-title">🌐 Client Portal (M3M, Smart World Login)</div>
+                            <ul class="sprint-tasks">
+                              <li>Axsys's clients get read-only access to their project progress</li>
+                              <li>M3M logs in — sees Paras Avenue live T/R/D/I</li>
+                              <li>No more "Sir project ka kya hua?" calls to Axsys</li>
+                              <li>Premium differentiator vs all competitors</li>
+                              <li>Axsys becomes the most tech-forward facade company in India</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 15</div>
+                            <div class="sprint-card-title">🧠 AI Photo Verification</div>
+                            <ul class="sprint-tasks">
+                              <li>AI checks if uploaded site photo matches correct panel/location</li>
+                              <li>Flags suspicious or repeated/fake photos</li>
+                              <li>Powered by Google Gemini Vision API</li>
+                              <li>Automatic quality audit without human review</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 16</div>
+                            <div class="sprint-card-title">🏗️ BIM / 3D Digital Twin</div>
+                            <ul class="sprint-tasks">
+                              <li>Interactive 3D building model per project</li>
+                              <li>Installed panels turn green as DPR submitted</li>
+                              <li>Director rotates building — sees live status per floor</li>
+                              <li>Built with Three.js / Autodesk APS</li>
+                              <li>Biggest WOW factor for new client acquisition</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 17</div>
+                            <div class="sprint-card-title">💰 Estimation + Billing Triggers</div>
+                            <ul class="sprint-tasks">
+                              <li>BOQ + Rate master → auto-generate project estimate/quote</li>
+                              <li>When milestone % reached → auto-draft invoice</li>
+                              <li>Payment term tracking: Token / 20% Advance / Stage billing</li>
+                              <li>Outstanding payment dashboard for directors</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
-                <!-- Frame 21: FUTURE PHASES -->
+                <!-- Frame 21: CURRENT STATUS + WHAT WE DO TODAY -->
                 <div class="miro-frame" id="f21">
                   <div class="miro-frame-header">
                     <span class="miro-frame-num">Frame 21</span>
-                    <h4>Future Platform Expansion Roadmap</h4>
+                    <h4>Current Status: Abhi Kya Chal Raha Hai &amp; Aage Kya Hoga</h4>
                   </div>
                   <div class="miro-frame-body">
-                    <div class="future-phases-columns">
-                      <div class="fcol phase-2">
-                        <h6>Phase 2: Operational Intel</h6>
-                        <ul>
-                          <li>Detailed stores bin locations</li>
-                          <li>Purchase tracking & POs</li>
-                          <li>Contractor measurement reconciliation</li>
-                          <li>Gatepass digital checks</li>
-                        </ul>
+
+                    <div class="status-board-grid">
+
+                      <!-- NOW -->
+                      <div class="status-col status-now">
+                        <div class="status-col-header">🔴 ABHI (Current Pain — Axsys ke paas)</div>
+                        <div class="status-item-list">
+                          <div class="status-item red">
+                            <span class="si-icon">📊</span>
+                            <div><strong>MILESTONE Sheet</strong><br>Manually color-coded. No live sync. Someone has to update it after every WhatsApp.</div>
+                          </div>
+                          <div class="status-item red">
+                            <span class="si-icon">📐</span>
+                            <div><strong>Design Tracking</strong><br>Concept/Structure/Shop Drawing columns in Excel — manually filled, no alerts, no version history.</div>
+                          </div>
+                          <div class="status-item red">
+                            <span class="si-icon">💬</span>
+                            <div><strong>T/R/D/I Updates</strong><br>Naushad types "T:480 R:420 D:350 I:290" on WhatsApp every evening. No structure. Not searchable.</div>
+                          </div>
+                          <div class="status-item red">
+                            <span class="si-icon">👷</span>
+                            <div><strong>Deepak Workbook</strong><br>Massive color-coded matrix. No one knows live worker count except Deepak ji himself.</div>
+                          </div>
+                          <div class="status-item red">
+                            <span class="si-icon">⚠️</span>
+                            <div><strong>AJAY ji Issues</strong><br>Issues typed in Excel. Plot 625 was on HOLD — nobody got an alert. It stayed stuck.</div>
+                          </div>
+                          <div class="status-item red">
+                            <span class="si-icon">📋</span>
+                            <div><strong>Handover Sheet</strong><br>PENDING across 15+ projects. No deadline. No responsible person. No escalation.</div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="fcol phase-3">
-                        <h6>Phase 3: AI & Automation</h6>
-                        <ul>
-                          <li>AI computer vision photo audit</li>
-                          <li>Automatic CAD to WBS extraction</li>
-                          <li>Weather forecast risk predictor</li>
-                          <li>Voice logs parser for DPR</li>
-                        </ul>
+
+                      <!-- PHASE 1 -->
+                      <div class="status-col status-p1">
+                        <div class="status-col-header">🟢 PHASE 1 — Month 1 (₹40k)</div>
+                        <div class="status-item-list">
+                          <div class="status-item green">
+                            <span class="si-icon">✅</span>
+                            <div><strong>Project Create + BOQ Import</strong><br>Excel upload → column map → structured item list. One-time setup per project format.</div>
+                          </div>
+                          <div class="status-item green">
+                            <span class="si-icon">✅</span>
+                            <div><strong>Live MILESTONE Dashboard</strong><br>All 50 projects. Status cards. TRDI live. Filter by zone/PM. Director sees everything in 30 seconds.</div>
+                          </div>
+                          <div class="status-item green">
+                            <span class="si-icon">✅</span>
+                            <div><strong>Design Stage Board</strong><br>7 stages per item. Upload drawing. Lock version. Overdue alerts. No manual color coding.</div>
+                          </div>
+                          <div class="status-item green">
+                            <span class="si-icon">✅</span>
+                            <div><strong>Mobile DPR App</strong><br>30-second entry. Photo + GPS. Offline. MILESTONE auto-updates. WhatsApp entry stops.</div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="fcol phase-4">
-                        <h6>Phase 4: Digital Twin</h6>
-                        <ul>
-                          <li>BIM model interactive render</li>
-                          <li>3D WBS zone status checks</li>
-                          <li>Barcoded tracking per glass panel</li>
-                          <li>Realtime panels installation map</li>
-                        </ul>
+
+                      <!-- PHASE 2+ -->
+                      <div class="status-col status-future">
+                        <div class="status-col-header">🔵 PHASE 2-4 — Month 2 onwards</div>
+                        <div class="status-item-list">
+                          <div class="status-item blue">
+                            <span class="si-icon">👥</span>
+                            <div><strong>Resource OS</strong><br>Deepak workbook becomes digital. Who is where. Who is missing. Real-time.</div>
+                          </div>
+                          <div class="status-item blue">
+                            <span class="si-icon">🚨</span>
+                            <div><strong>Issue Tracker</strong><br>Raise → Assign owner → Deadline → 48hr auto-escalation to PM + DGM on WhatsApp.</div>
+                          </div>
+                          <div class="status-item blue">
+                            <span class="si-icon">🔧</span>
+                            <div><strong>Fitter Attendance App</strong><br>Delhi/Noida/Gurgaon fitter daily mobile check-in. E-Code based. Auto summary report.</div>
+                          </div>
+                          <div class="status-item purple">
+                            <span class="si-icon">📲</span>
+                            <div><strong>Auto WhatsApp @ 6:30 PM</strong><br>Zero manual work. System compiles and sends. 60+ hours/month saved for the team.</div>
+                          </div>
+                          <div class="status-item gold">
+                            <span class="si-icon">🌐</span>
+                            <div><strong>Client Portal + BIM</strong><br>M3M logs in, sees their project live. 3D building turns green as panels install.</div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <!-- Revenue Tracker -->
+                    <div class="revenue-roadmap-bar">
+                      <h6>Revenue Trajectory — Axsys + Group Companies</h6>
+                      <div class="rev-steps">
+                        <div class="rev-step" style="background:#1a4a2e">
+                          <strong>Month 1</strong>
+                          <span>₹40,000</span>
+                          <small>Phase 1 MVP</small>
+                        </div>
+                        <div class="rev-arrow">→</div>
+                        <div class="rev-step" style="background:#1a2a4a">
+                          <strong>Month 3</strong>
+                          <span>₹80,000</span>
+                          <small>Phase 2 Ops</small>
+                        </div>
+                        <div class="rev-arrow">→</div>
+                        <div class="rev-step" style="background:#2a1a4a">
+                          <strong>Month 5</strong>
+                          <span>₹1,00,000</span>
+                          <small>Phase 3 Auto</small>
+                        </div>
+                        <div class="rev-arrow">→</div>
+                        <div class="rev-step" style="background:#3a2a1a">
+                          <strong>Month 6</strong>
+                          <span>₹1,40,000</span>
+                          <small>+Art-N-Glass</small>
+                        </div>
+                        <div class="rev-arrow">→</div>
+                        <div class="rev-step" style="background:#4a3a1a">
+                          <strong>Month 8</strong>
+                          <span>₹2,00,000+</span>
+                          <small>Full Group SaaS</small>
+                        </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
 

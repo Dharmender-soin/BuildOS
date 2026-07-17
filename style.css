@@ -3046,4 +3046,65 @@ body.presentation-mode .miro-workspace-wrapper {
   color: #0f172a !important;
 }
 
+/* ============================================
+   PHASE ROADMAP INTERACTIVE STYLES
+   ============================================ */
+.phase-tab-switcher { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.phase-tab-btn { padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: var(--color-text-muted); border-radius: 8px; cursor: pointer; font-size: 0.78rem; font-weight: 600; font-family: 'Inter', sans-serif; transition: all 0.2s ease; }
+.phase-tab-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.phase-tab-btn.active { background: rgba(99,102,241,0.25); border-color: rgba(99,102,241,0.5); color: #fff; box-shadow: 0 0 12px rgba(99,102,241,0.3); }
+.phase-panel { width: 100%; }
+.phase-panel-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 1rem 1.25rem; border-radius: 10px; margin-bottom: 1rem; gap: 1rem; }
+.phase-panel-header h5 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+.phase-panel-header p { font-size: 0.72rem; color: rgba(255,255,255,0.7); }
+.phase-meta-box { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+.phase-badge { padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.68rem; font-weight: 700; white-space: nowrap; }
+.phase-badge.green  { background: rgba(16,185,129,0.25); color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
+.phase-badge.blue   { background: rgba(59,130,246,0.25);  color: #60a5fa; border: 1px solid rgba(59,130,246,0.4); }
+.phase-badge.purple { background: rgba(139,92,246,0.25);  color: #a78bfa; border: 1px solid rgba(139,92,246,0.4); }
+.phase-badge.gold   { background: rgba(245,158,11,0.25);  color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); }
+.phase-badge.amber  { background: rgba(245,158,11,0.15);  color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+.sprint-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.85rem; }
+.sprint-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1rem; transition: border-color 0.2s; }
+.sprint-card:hover { border-color: rgba(99,102,241,0.35); }
+.sprint-card-header { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ai); margin-bottom: 0.35rem; }
+.sprint-card-title { font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+.sprint-replaces { font-size: 0.68rem; color: #f59e0b; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); border-radius: 5px; padding: 0.2rem 0.5rem; margin-bottom: 0.6rem; }
+.sprint-tasks { list-style: none; padding: 0; margin: 0 0 0.6rem 0; }
+.sprint-tasks li { font-size: 0.72rem; color: var(--color-text-muted); padding: 0.2rem 0 0.2rem 1rem; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.sprint-tasks li::before { content: '›'; position: absolute; left: 0; color: var(--color-ai); }
+.sprint-outcome { font-size: 0.7rem; color: #10b981; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 5px; padding: 0.3rem 0.5rem; }
+.phase-panel-body { padding: 0.25rem 0; }
+
+/* STATUS BOARD */
+.status-board-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+@media (max-width: 900px) { .status-board-grid { grid-template-columns: 1fr; } }
+.status-col { border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+.status-col-header { padding: 0.6rem 0.85rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.status-now .status-col-header    { background: rgba(239,68,68,0.2);  color: #f87171; }
+.status-p1  .status-col-header    { background: rgba(16,185,129,0.2); color: #34d399; }
+.status-future .status-col-header { background: rgba(59,130,246,0.2); color: #60a5fa; }
+.status-item-list { padding: 0.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.status-item { display: flex; gap: 0.5rem; align-items: flex-start; padding: 0.5rem 0.6rem; border-radius: 7px; font-size: 0.72rem; line-height: 1.4; }
+.status-item.red    { background: rgba(239,68,68,0.08);  border: 1px solid rgba(239,68,68,0.15); }
+.status-item.green  { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15); }
+.status-item.blue   { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.15); }
+.status-item.purple { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.15); }
+.status-item.gold   { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); }
+.status-item strong { color: #fff; display: block; margin-bottom: 0.15rem; }
+.status-item .si-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+.status-item div { color: var(--color-text-muted); }
+
+/* REVENUE ROADMAP */
+.revenue-roadmap-bar { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 1rem; }
+.revenue-roadmap-bar h6 { font-size: 0.72rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+.rev-steps { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.rev-step { display: flex; flex-direction: column; align-items: center; padding: 0.6rem 0.9rem; border-radius: 8px; min-width: 90px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+.rev-step strong { font-size: 0.65rem; color: rgba(255,255,255,0.6); margin-bottom: 0.15rem; }
+.rev-step span   { font-size: 0.9rem; font-weight: 800; color: #fff; font-family: 'Outfit', sans-serif; }
+.rev-step small  { font-size: 0.6rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem; }
+.rev-arrow { font-size: 1.1rem; color: rgba(255,255,255,0.3); flex-shrink: 0; }
+
+
+
 

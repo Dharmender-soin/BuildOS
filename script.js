@@ -1349,3 +1349,24 @@ function loadClientPitchMode() {
   }
 }
 
+// Phase Roadmap Tab Switcher (Frame 20)
+function switchPhaseTab(phaseId) {
+  // Hide all phase panels
+  const panels = ['ph1', 'ph2', 'ph3', 'ph4'];
+  panels.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
+  // Remove active from all tab buttons
+  const tabs = document.querySelectorAll('.phase-tab-btn');
+  tabs.forEach(btn => btn.classList.remove('active'));
+
+  // Show selected panel
+  const target = document.getElementById(phaseId);
+  if (target) target.style.display = 'block';
+
+  // Set active tab button
+  const activeBtn = document.getElementById('ptab-' + phaseId);
+  if (activeBtn) activeBtn.classList.add('active');
+}
