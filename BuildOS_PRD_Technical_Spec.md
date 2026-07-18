@@ -18,13 +18,13 @@ Axsys designs, manufactures, and installs high-end aluminium facades (unitized g
        ↓
 [Step 3] On-Site Actual Survey (Elevation-wise Measurement + Hand-drawn Sketch)
        ↓
-[Step 4] Axsys Designer → Shop Drawing (CAD / GFC Drawing)
+[Step 4] Axsys Designer → SOFT DRAWING (CAD — sent to consultant for approval)
        ↓
-[Step 4A] ⭐ Shop Drawing sent to CLIENT'S CONSULTANT for Approval
-          → APPROVED (GFC Stamp) → Proceed to Production
+[Step 4A] ⭐ Soft Drawing sent to CLIENT'S CONSULTANT for GFC Stamp
+          → APPROVED → Becomes GFC Drawing → Then Shop Drawing made for factory
           → REJECTED → Revision required → Loop back to Step 4
        ↓
-[Step 5] Design Release / BOM → Work Order to Factory
+[Step 5] Design Release / BOM → Work Order + SHOP DRAWING to Factory
        ↓
 [Step 6] Factory Production + External Purchase (Indent)
        ↓
@@ -251,25 +251,29 @@ surveys (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ⭐ CONSULTANT DRAWING APPROVALS (Step 4A — GFC Approval Loop)
--- After survey, Axsys designer makes shop drawing and sends to client's consultant for GFC stamp
-shop_drawing_approvals (
+-- ⭐ SOFT DRAWING APPROVALS (Step 4A — GFC Approval Loop)
+-- After survey, Axsys designer makes SOFT DRAWING and sends to client's consultant for GFC stamp.
+-- Note: 'Soft Drawing' = draft CAD drawing sent for approval.
+--       'GFC Drawing' = same drawing after consultant stamps it as 'Good For Construction'.
+--       'Shop Drawing' = detailed production drawing made AFTER GFC, used inside factory.
+soft_drawing_approvals (
   id UUID PRIMARY KEY,
   survey_id UUID REFERENCES surveys(id),
   project_id UUID REFERENCES projects(id),
   elevation_id UUID REFERENCES elevations(id),
-  drawing_file_url TEXT NOT NULL,     -- Axsys shop drawing PDF uploaded
+  soft_drawing_url TEXT NOT NULL,     -- Axsys designer's Soft Drawing (CAD/PDF)
   revision_no TEXT DEFAULT 'Rev-0',   -- Tracks revision rounds (Rev-0, Rev-1, Rev-2...)
-  submitted_by UUID REFERENCES users(id),  -- Axsys designer who submitted
+  submitted_by UUID REFERENCES users(id),  -- Axsys designer who submitted to consultant
   submitted_date DATE,
   consultant_name TEXT,               -- Name of client's consultant/architect
   approval_status TEXT CHECK (approval_status IN ('PENDING_APPROVAL', 'APPROVED_GFC', 'REJECTED_REVISION')) DEFAULT 'PENDING_APPROVAL',
+  gfc_drawing_url TEXT,               -- Scanned GFC stamped drawing (uploaded after approval)
   approval_date DATE,                 -- Date consultant gave GFC stamp
-  rejection_remarks TEXT,             -- If rejected, consultant's comments for revision
+  rejection_remarks TEXT,             -- If rejected, consultant's revision comments
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- DESIGN RELEASES (Only created AFTER shop_drawing_approvals.approval_status = 'APPROVED_GFC')
+-- DESIGN RELEASES (Work Order — Only created AFTER soft_drawing_approvals.approval_status = 'APPROVED_GFC')
 production_releases (
   id UUID PRIMARY KEY,
   survey_id UUID REFERENCES surveys(id),
