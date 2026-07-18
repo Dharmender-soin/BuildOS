@@ -1614,6 +1614,7 @@
                   <div class="miro-frame-header">
                     <span class="miro-frame-num">Frame 20</span>
                     <h4>Axsys BuildOS — Interactive Phase-wise Delivery Roadmap</h4>
+                    <button class="miro-frame-maximize-btn" onclick="maximizeFrame('f20')">🔎 Expand</button>
                   </div>
                   <div class="miro-frame-body">
 
@@ -1891,6 +1892,7 @@
                   <div class="miro-frame-header">
                     <span class="miro-frame-num">Frame 21</span>
                     <h4>Current Status: Present State (As-Is) &amp; Future State (To-Be)</h4>
+                    <button class="miro-frame-maximize-btn" onclick="maximizeFrame('f21')">🔎 Expand</button>
                   </div>
                   <div class="miro-frame-body">
 
@@ -2329,6 +2331,19 @@
           <h4 class="modal-section-title">AI & WhatsApp Automations</h4>
           <p class="modal-text" id="modal-automation" style="font-style: italic; color: var(--color-ai);"></p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Frame Maximize Modal Overlay -->
+  <div id="frame-modal" class="frame-modal-backdrop" style="display: none;" onclick="closeFrameModal()">
+    <div class="frame-modal-content" onclick="event.stopPropagation()">
+      <div class="frame-modal-header">
+        <h4 id="frame-modal-title">Frame Detail</h4>
+        <button class="frame-modal-close" onclick="closeFrameModal()">✖</button>
+      </div>
+      <div id="frame-modal-body" class="frame-modal-body">
+        <!-- Content cloned here dynamically -->
       </div>
     </div>
   </div>

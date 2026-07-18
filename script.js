@@ -1370,3 +1370,30 @@ function switchPhaseTab(phaseId) {
   const activeBtn = document.getElementById('ptab-' + phaseId);
   if (activeBtn) activeBtn.classList.add('active');
 }
+
+// Frame Maximize Overlay Logic
+function maximizeFrame(frameId) {
+  const frame = document.getElementById(frameId);
+  if (!frame) return;
+
+  const headerText = frame.querySelector('.miro-frame-header h4').innerText;
+  const bodyContent = frame.querySelector('.miro-frame-body').innerHTML;
+
+  const modal = document.getElementById('frame-modal');
+  const modalTitle = document.getElementById('frame-modal-title');
+  const modalBody = document.getElementById('frame-modal-body');
+
+  if (modal && modalTitle && modalBody) {
+    modalTitle.innerText = headerText;
+    modalBody.innerHTML = bodyContent;
+    modal.style.display = 'flex';
+  }
+}
+
+function closeFrameModal() {
+  const modal = document.getElementById('frame-modal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
