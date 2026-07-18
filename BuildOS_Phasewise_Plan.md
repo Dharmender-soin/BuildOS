@@ -4,50 +4,50 @@
 
 ---
 
-## 🟢 PHASE 1: Core MVP (Month 1)
-**Focus:** Core Progress Tracking & Version Control.  
-*Directly replaces: MILESTONE Master Excel, Per-Project Design spreadsheets, and WhatsApp progress texts.*
+## 🟢 PHASE 1: Core MVP (Month 1 / target 15 August)
+**Focus:** Core Progress Tracking, Survey-to-Release Cycle, Dispatch Tracking & Task Management.  
+*Directly replaces: MILESTONE Master Excel, Per-Project Design spreadsheets, WhatsApp progress texts, and manual task lists.*
 
-### Module 1: Project Setup & BOQ Parser
-* **What it does:** Allows Axsys PMs to upload client BOQs (Excel) ➔ System auto-parses rows into structured work items.
-* **Axsys Excel Replaced:** Individual project sheets (Paras Avenue, M3M, Vegas tabs).
-* **Final Outcome:** 1-click database setup for new projects with exact quantities and units locked.
+### Module 1: BOQ & Survey Input
+* **What it does:** Upload client BOQ Excel, map columns, and parse items. Support logging of surveys (e.g. out of 1000 sqm door BOQ, we surveyed 200 sqm today) along with uploading a hand-drawn/manual survey sketch photo.
+* **Axsys Excel Replaced:** Individual project sheets (M3M, Vegas, Sky Xotic tabs) + raw site survey sketches.
+* **Final Outcome:** Structured project BOQ with logged surveyed quantities and attached sketch documentation.
 
-### Module 2: MILESTONE Command Centre Dashboard
-* **What it does:** A unified dashboard showing all 50+ projects as cards with live status badges (`ON TRACK`, `AT RISK`, `HOLD`).
-* **Axsys Excel Replaced:** Master MILESTONE spreadsheet.
-* **Final Outcome:** Directors can check portfolio health in 30 seconds without calling site managers.
+### Module 2: Design Release Board (Design/Release Team)
+* **What it does:** Design/Release team extracts material requirements from surveyed areas, uploads production Excel sheets (Work Orders/BOM), and tracks pending survey conversions (how many surveys are NOT yet converted to design release).
+* **Axsys Excel Replaced:** Color-coded design columns and manual BOM spreadsheets.
+* **Final Outcome:** Full visibility into pending design-release conversions, preventing production backlogs.
 
-### Module 3: Design Stage Tracker
-* **What it does:** Track 7 design approval stages per item (Concept ➔ Structure ➔ Shop ➔ Colour ➔ MS ➔ Glass ➔ BOM) with active version locking.
-* **Axsys Excel Replaced:** Color-coded design columns in project tabs.
-* **Final Outcome:** Site engineers only view the latest locked drawing (e.g. V3); scanning V2 sheet triggers a warning popup.
+### Module 3: MILESTONE Command Centre & Dispatch/Billing Import
+* **What it does:** Unified dashboard displaying all 50+ projects as cards with live status (`ON TRACK`, `AT RISK`, `HOLD`). Supports billing/dispatch clerk uploading daily bill/invoice logs to track dispatched quantities.
+* **Axsys Excel Replaced:** Master MILESTONE spreadsheet + manual factory dispatch reports.
+* **Final Outcome:** Dashboard showing live T/R/D/I numbers driven directly by factory bills and site inputs.
 
 ### Module 4: Mobile DPR Application (Flutter)
-* **What it does:** Mobile app for site supervisors to log daily "Delivered" and "Installed" quantities. Mandatory site photo + GPS coordinate checks.
-* **Axsys Workflow Replaced:** Site engineers typing manual WhatsApp texts.
-* **Final Outcome:** Standardized progress uploads that auto-update dashboards instantly (works offline in dead zones).
+* **What it does:** App for site supervisors to log daily **Received Today** (factory dispatches) and **Installed Today** quantities per BOQ item. Mandatory site photo and GPS coordinates stamp. Tracks partial deliveries.
+* **Axsys Workflow Replaced:** Site engineers typing manual WhatsApp reports.
+* **Final Outcome:** Real-time mismatch tracking (Plant Dispatched vs Site Received) and progress logging with offline support.
+
+### Module 5: SLA Issue Tracker & Task Board (Kanban)
+* **What it does:** A drag-and-drop Kanban task board (similar to Monday.com or Google Tasks) to track site blocker issues. Tasks are mapped to a project and assigned to a responsible owner.
+* **Axsys Excel Replaced:** AJAY ji sheet + manual notes/reminders.
+* **Final Outcome:** Visual task status board per project and per person. Auto-flags tasks delayed beyond 48 hours.
 
 ---
 
 ## 🔵 PHASE 2: Operations & Resources (Month 2-3)
-**Focus:** Contractor Management, Site Issues, and Zone Coordination.  
-*Directly replaces: Deepak Workbook, AJAY ji Issues sheet, staff sheets, and Handover lists.*
+**Focus:** Contractor Management, Manpower Allocations, and Handover lists.  
+*Directly replaces: Deepak Workbook, staff sheets, and Handover lists.*
 
-### Module 5: Resource OS (Staff Allocations)
+### Module 6: Resource OS (Staff Allocations)
 * **What it does:** Visual DGM ➔ ZPM ➔ PM ➔ Supervisor hierarchy mapping.
 * **Axsys Excel Replaced:** PROJECT STAFF NEW sheet.
 * **Final Outcome:** Clear visibility of staff roles; system alerts if any project lacks a PM or Lead Designer.
 
-### Module 6: SLA Issue & Blocker Tracker
-* **What it does:** Site engineers log blocker issues (civil variations, raw material shortages) on the app.
-* **Axsys Excel Replaced:** AJAY ji sheet.
-* **Final Outcome:** SLA deadlines assigned. If unresolved in 48 hours, automatically escalates to PM/DGM via WhatsApp.
-
-### Module 7: Contractor Allocation Board
-* **What it does:** Dynamic database tracking contractor workforce deployments.
+### Module 7: Contractor Allocation Board (Deepak Workbook)
+* **What it does:** Dynamic database tracking contractor workforce deployments. Required vs Actual worker counts on sites; auto-calculates yields (panels installed ÷ fitters present).
 * **Axsys Excel Replaced:** Deepak Workbook contractor matrix.
-* **Final Outcome:** Required vs Actual worker counts on sites; auto-calculates yields (panels installed ÷ fitters present).
+* **Final Outcome:** Live workforce visibility, identifying labor shortages and contractor productivity.
 
 ### Module 8: Project Handover Checklist
 * **What it does:** Digitized completion sign-offs, final measurements, and compliance logs.

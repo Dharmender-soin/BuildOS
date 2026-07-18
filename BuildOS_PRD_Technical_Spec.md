@@ -1,6 +1,6 @@
 # BuildOS — Product Requirements & Technical Specifications
 ### Client: Axsys Solutions (Art N Glass Group)
-### Document Version: 1.1 | Date: July 18, 2026
+### Document Version: 1.2 | Date: July 18, 2026
 
 ---
 
@@ -12,7 +12,7 @@ BuildOS is a unified digital operating platform designed specifically for **Axsy
 ### 1.2 Core Business Model (Axsys)
 Axsys designs, manufactures, and installs high-end aluminium facades (unitized glazing, spider canopies, ACP cladding). Their operations follow a linear progress pipeline:
 ```
-BOQ Upload ➔ WBS Division ➔ Design Stages ➔ Factory Release (BOM) ➔ Dispatch & Delivery ➔ Installation ➔ Handover
+BOQ Upload ➔ Survey (Sketch Upload) ➔ Design Release (Work Order) ➔ Factory Dispatch (Billed) ➔ Site Delivery (Received) ➔ Installation ➔ Handover
 ```
 
 ---
@@ -21,15 +21,15 @@ BOQ Upload ➔ WBS Division ➔ Design Stages ➔ Factory Release (BOM) ➔ Disp
 
 BuildOS directly translates Axsys's current manual spreadsheets into automated, real-time database modules:
 
-| Current Spreadsheet | Operational Area | BuildOS Module |
-|---|---|---|
-| **MILESTONE (Master list)** | Portfolio Status & T/R/D/I | **Command Centre Dashboard** (Live health cards, TRDI progress) |
-| **M3M / Vegas / Sky Xotic tabs** | Drawing Stage Tracking | **Design Stage Board** (7-stage approvals, drawing lock) |
-| **AJAY ji Sheet** | Site Blocker/Issue Logger | **Escalation Issue Tracker** (48hr auto-escalation via WhatsApp) |
-| **Deepak Workbook** | Contractor Deployments | **Contractor Allocation Board** (Required vs Actual workers) |
-| **PROJECT FITTER NEW / fitter sheet** | Fitter Daily Status | **Fitter Attendance App** (E-Code check-ins with check-in stats) |
-| **HANDOVER Sheet** | Project Handover Checklist | **Closure Handover Board** (Assigned snag/sign-off checklists) |
-| **ZONE Sheet** | Zone-wise PM Hierarchy | **Zone Control View** (Card grid showing ZPM project mapping) |
+| Current Spreadsheet / File | Operational Area | BuildOS Module | Phase |
+|---|---|---|---|
+| **MILESTONE (Master list)** | Portfolio Status & T/R/D/I | **Command Centre Dashboard** (Live health cards, TRDI progress) | **Phase 1** |
+| **M3M / Vegas / Sky Xotic tabs** | Design Tracking & BOM | **Survey-to-Release Board** (Sketch upload & work order conversion) | **Phase 1** |
+| **AJAY ji Sheet & Task Lists** | Site Blocker & Tasks | **Kanban SLA Task Board** (Monday.com style project/owner task board) | **Phase 1** |
+| **Deepak Workbook** | Contractor Deployments | **Contractor Allocation Board** (Required vs Actual workers) | **Phase 2** |
+| **PROJECT FITTER NEW / fitter sheet** | Fitter Daily Status | **Fitter Attendance App** (E-Code check-ins with check-in stats) | **Phase 3** |
+| **HANDOVER Sheet** | Project Handover Checklist | **Closure Handover Board** (Assigned snag/sign-off checklists) | **Phase 2** |
+| **ZONE Sheet** | Zone-wise PM Hierarchy | **Zone Control View** (Card grid showing ZPM project mapping) | **Phase 2** |
 
 ---
 
@@ -37,39 +37,39 @@ BuildOS directly translates Axsys's current manual spreadsheets into automated, 
 
 ---
 
-### 🟢 PHASE 1: Core Execution Engine (Month 1)
-**Goal:** Deliver the foundation tracking system, replacing design spreadsheets and manual WhatsApp logs.
+### 🟢 PHASE 1: Core MVP (Month 1 / target 15 August)
+**Goal:** Deliver the survey-to-release lifecycle, billing dispatch tracker, mobile DPR app, and a Kanban task board to solve immediate operational delays.
 
-#### Module 1: Project Setup & BOQ Parser
-* **Function:** Upload any client BOQ Excel, map columns, and parse items into structured line items.
-* **Details:** Creates database records for projects and items (A.1, WT-01, etc.) with totals, units, and tags.
+#### Module 1: BOQ & Survey Input
+* **Function:** Upload client BOQ Excel, parse items, and enable site survey inputs.
+* **Details:** PM/Surveyor enters surveyed quantities (e.g. surveyed 200 sqm out of 1000 sqm item) and uploads hand-drawn/manual survey sketch photos. Tracks total BOQ qty vs surveyed qty.
 
-#### Module 2: MILESTONE Command Centre
-* **Function:** One dashboard displaying all 50+ projects as status cards.
-* **Details:** Live badges: `ON TRACK` (green), `OFF TRACK` (red), `AT RISK` (yellow), `HOLD` (grey). Shows PM, Designer, and live TRDI progress bars.
+#### Module 2: Design Release Board (Design/Release Team)
+* **Function:** Design/Release team extracts material requirements (BOM/Cutlist) from surveyed areas, uploads production Excel sheets (Work Orders/BOM), and tracks pending survey-to-release conversions (how many surveys are NOT yet converted to design release).
+* **Details:** Displays a list of pending surveys waiting for production documents to be generated. Once a work order is generated, the status updates and the PDF is version-locked.
 
-#### Module 3: Design Stage Tracker
-* **Function:** Tracks 7 design stages per BOQ item: Concept ➔ Structure ➔ Shop ➔ Colour ➔ MS ➔ Glass ➔ BOM.
-* **Details:** Simple approval flow (Designer submits ➔ PM/Client reviews ➔ Approves). Active version lock (e.g., only V3 is active; site engineers get alerts if scanning V2 printouts).
+#### Module 3: MILESTONE Command Centre & Dispatch Clerk Import
+* **Function:** Unified dashboard displaying all 50+ projects as status cards.
+* **Details:** Billing clerk uploads daily bill/invoice details from ERP to log plant dispatch quantities ($D$). Cards show live project health (`ON TRACK`, `AT RISK`, `HOLD`) and live TRDI progress bars.
 
-#### Module 4: Mobile DPR App (Flutter)
-* **Function:** site engineers submit daily reports in 30 seconds.
-* **Details:** Enter "Delivered Today" and "Installed Today" per BOQ item. Mandatory site photo and GPS coordinates stamp. Works offline (queues entries, auto-syncs when online).
+#### Module 4: Mobile DPR Application (Flutter / Web)
+* **Function:** App for site supervisors to log daily progress.
+* **Details:** Enter **Received Today** (checks against factory dispatches to track transit losses) and **Installed Today** quantities per BOQ item. Mandatory site photo and GPS coordinates stamp. Supports **partial deliveries** (remaining balance remains pending).
+
+#### Module 5: SLA Kanban Task & Issue Board
+* **Function:** A drag-and-drop Kanban task board (similar to Monday.com or Google Tasks) to track site blockers and dependencies.
+* **Details:** Tasks are mapped to a project and assigned to a responsible owner. Auto-flags tasks delayed beyond 48 hours.
 
 ---
 
 ### 🔵 PHASE 2: Operations & Resource Management (Month 2-3)
-**Goal:** Digitalize contractor worker sheets, site issues, and zone project mappings.
+**Goal:** Digitalize contractor worker sheets, staff allocations, and zone project mappings.
 
-#### Module 5: Resource OS (Staff Allocation)
+#### Module 6: Resource OS (Staff Allocation)
 * **Function:** Org hierarchy setup: DGM ➔ ZPM ➔ PM ➔ Supervisor ➔ Site Engineer.
 * **Details:** Assign personnel to active projects. Raises alerts if any project has no PM or lead designer assigned.
 
-#### Module 6: SLA Issue & Blocker Tracker
-* **Function:** Logs site blockers (scaffolding issues, material stockouts, CAD errors).
-* **Details:** Assigns to owner with target deadline. If unresolved within 48 hours, automatically sends a WhatsApp escalation alert to PM and DGM.
-
-#### Module 7: Contractor Allocation Board
+#### Module 7: Contractor Allocation Board (Deepak Workbook)
 * **Function:** Digitizes the manual Deepak Workbook matrix.
 * **Details:** Contractor-wise headcounts. Compares required manpower against actual site present counts. Calculates labor yield (panels installed ÷ workers present).
 
@@ -136,7 +136,7 @@ users (
   name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
   phone TEXT,
-  role TEXT CHECK (role IN ('DIRECTOR','DGM','ZPM','PM','DESIGNER','SITE_ENGINEER','STORE')),
+  role TEXT CHECK (role IN ('DIRECTOR','DGM','ZPM','PM','DESIGNER','SITE_ENGINEER','STORE','BILLING_CLERK')),
   is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -169,6 +169,41 @@ boq_items (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- SURVEY TRACKING
+surveys (
+  id UUID PRIMARY KEY,
+  project_id UUID REFERENCES projects(id),
+  boq_item_id UUID REFERENCES boq_items(id),
+  surveyor_id UUID REFERENCES users(id),
+  survey_qty NUMERIC NOT NULL,
+  sketch_url TEXT,                    -- Manual/hand-drawn survey sketch image
+  status TEXT CHECK (status IN ('PENDING_RELEASE', 'RELEASED_TO_PRODUCTION')) DEFAULT 'PENDING_RELEASE',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- DESIGN RELEASES
+production_releases (
+  id UUID PRIMARY KEY,
+  survey_id UUID REFERENCES surveys(id),
+  release_no TEXT NOT NULL,           -- e.g., "WO-05"
+  bom_excel_url TEXT,                 -- Uploaded BOM/Cutlist spreadsheet
+  release_qty NUMERIC NOT NULL,
+  designer_id UUID REFERENCES users(id),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- FACTORY DISPATCH LOGS (Billing Clerk Entries)
+dispatches (
+  id UUID PRIMARY KEY,
+  project_id UUID REFERENCES projects(id),
+  boq_item_id UUID REFERENCES boq_items(id),
+  clerk_id UUID REFERENCES users(id),
+  bill_no TEXT NOT NULL,
+  dispatch_qty NUMERIC NOT NULL,
+  recorded_date DATE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- DAILY DPR RECORDS
 dpr_entries (
   id UUID PRIMARY KEY,
@@ -176,7 +211,7 @@ dpr_entries (
   boq_item_id UUID REFERENCES boq_items(id),
   engineer_id UUID REFERENCES users(id),
   entry_date DATE NOT NULL,
-  delivered_today NUMERIC DEFAULT 0,
+  received_today NUMERIC DEFAULT 0,    -- Delivered to site today
   installed_today NUMERIC DEFAULT 0,
   site_photo_url TEXT,
   gps_lat NUMERIC,
@@ -184,6 +219,20 @@ dpr_entries (
   has_blocker BOOLEAN DEFAULT false,
   blocker_desc TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- SLA KANBAN TASK / ISSUE BOARD
+issues (
+  id UUID PRIMARY KEY,
+  project_id UUID REFERENCES projects(id),
+  title TEXT NOT NULL,
+  description TEXT,
+  assigned_to UUID REFERENCES users(id),
+  priority TEXT CHECK (priority IN ('P1', 'P2', 'P3')),
+  status TEXT CHECK (status IN ('todo', 'progress', 'done', 'reviewed')) DEFAULT 'todo',
+  due_date DATE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- PROJECT MASTER TRDI METRICS
@@ -207,6 +256,8 @@ To prevent data entry errors, the system enforces the following hierarchy at all
 $$\text{Total Scope (T)} \ge \text{Released (R)} \ge \text{Delivered (D)} \ge \text{Installed (I)}$$
 - Site engineers cannot submit an installation count ($I$) that exceeds the available delivered stock ($D - I$).
 - Delivered count ($D$) cannot exceed the released count ($R$).
+- Released count ($R$) cannot exceed the surveyed count ($S$).
+- Surveyed count ($S$) cannot exceed the BOQ scope ($T$).
 
 ### 5.2 Mobile DPR Constraints
 - GPS coordinates stamp must match the project site location within a 2.5km radius.
@@ -224,9 +275,7 @@ $$\text{Total Scope (T)} \ge \text{Released (R)} \ge \text{Delivered (D)} \ge \t
 
 ---
 
-## 7. KEY QUESTIONS FOR KAL MEETING
-
-Aap kal meeting mein client se ye **8 practical questions** zaroor discuss karein:
+## 7. KEY DISCUSSION QUESTIONS
 
 1. **BOQ Formats:** M3M, Paras Avenue, aur ACE 153 ke BOQ formats alag hain. Hum column mapping tool bana rahe hain — kya unke paas koi standard template hai jise hum verify kar sakein?
 2. **Offline Mode:** Site locations pe standard internet connections hote hain ya completely raw offline/dead-zone areas hain?
@@ -250,20 +299,21 @@ Aap kal meeting mein client se ye **8 practical questions** zaroor discuss karei
 
 ---
 
-## 9. SPRINT CHECKLIST FOR DEVELOPERS (Sprint 1-4)
+## 9. SPRINT CHECKLIST FOR DEVELOPERS (Phase 1)
 
 ```markdown
-- [ ] Setup Supabase DB & Auth configuration (tenants, users, projects, boq_items)
+- [ ] Setup Supabase DB & Auth configuration (tenants, users, projects, boq_items, surveys, production_releases, dispatches, issues, dpr_entries)
 - [ ] Next.js 14 template deployment on Vercel
-- [ ] Create BOQ Importer with custom column mapper interface
-- [ ] Build MILESTONE Command Centre dashboard with status cards and search filters
-- [ ] Create Design Stage approvals board with file version lock (V1/V2/V3)
+- [ ] Create BOQ Importer with custom column mapper interface and Survey input form
+- [ ] Build MILESTONE Command Centre dashboard with status cards and Dispatch clerk billing uploader
+- [ ] Create Design Stage approvals board with file version lock (V1/V2/V3) and survey-to-release conversion tracker
+- [ ] Build SLA Kanban Task/Issue board per project for tracking site blockers
 - [ ] Build Flutter Mobile login with OTP SMS authentication
-- [ ] Setup mobile DPR entry screen with GPS coordinates stamp and camera photo uploads
+- [ ] Setup mobile DPR entry screen with GPS coordinates stamp and camera photo uploads (tracks Received vs Installed)
 ```
 
 ---
 
 ## 10. DEVELOPER BRIEF
 
-> Build a multi-tenant web + mobile platform (Next.js + Supabase + Flutter) for Axsys Solutions — a facade company with 50+ active projects. Replace their manual Excel spreadsheets and WhatsApp log entries with a unified cloud command dashboard, a design stage tracker, and a mobile site supervisor DPR tool. Row-level tenant configurations (`tenant_id`) must be integrated from Day 1 to allow multi-tenant scale to Art-N-Glass and Green Fenestration later.
+> Build a multi-tenant web + mobile platform (Next.js + Supabase + Flutter) for Axsys Solutions — a facade company with 50+ active projects. Replace their manual Excel spreadsheets and WhatsApp log entries with a unified cloud command dashboard, a design stage tracker, a mobile site supervisor DPR tool, and a Monday.com style Kanban task board. Row-level tenant configurations (`tenant_id`) must be integrated from Day 1 to allow multi-tenant scale to Art-N-Glass and Green Fenestration later.

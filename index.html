@@ -1630,8 +1630,8 @@
                     <div class="phase-panel" id="ph1">
                       <div class="phase-panel-header" style="background: linear-gradient(135deg, #1a4a2e, #2d7a4f);">
                         <div>
-                          <h5>Phase 1: MVP — Core Execution Engine</h5>
-                          <p>Replaces MILESTONE sheet + per-project design tabs + WhatsApp T/R/D/I updates</p>
+                          <h5>Phase 1: MVP — Core Execution &amp; Task Engine</h5>
+                          <p>Replaces MILESTONE sheet + Survey inputs + Design columns + Billing Dispatch + WhatsApp T/R/D/I + AJAY ji Task list</p>
                         </div>
                         <div class="phase-meta-box">
                           <span class="phase-badge green">🟢 ACTIVE</span>
@@ -1641,58 +1641,53 @@
                         <div class="sprint-cards-grid">
                           <div class="sprint-card">
                             <div class="sprint-card-header">Sprint 1</div>
-                            <div class="sprint-card-title">📋 Project Setup + BOQ Import</div>
-                            <div class="sprint-replaces">Replaces: Per-project Excel sheets (M3M, Vegas, Sky Xotic tabs)</div>
+                            <div class="sprint-card-title">📋 Project Setup &amp; Survey Input</div>
+                            <div class="sprint-replaces">Replaces: BOQ excels + raw site survey sketch sheets</div>
                             <ul class="sprint-tasks">
-                              <li>Create project with Client, Location, Dates, PM, Designer</li>
-                              <li>BOQ Excel upload + Column Mapping UI</li>
-                              <li>BOQ items list: Item No, Description, Unit, Qty</li>
-                              <li>Supabase Auth — role-based login (Director/PM/Designer/Engineer)</li>
-                              <li>User management panel</li>
+                              <li>Setup Project details, PM, and Lead Designer</li>
+                              <li>BOQ Excel upload with Column Mapping UI</li>
+                              <li>Log site surveys (surveyed qty vs total BOQ qty)</li>
+                              <li>Upload hand-drawn/manual survey sketch photos</li>
+                              <li>Supabase Auth with role-based dashboard access</li>
                             </ul>
-                            <div class="sprint-outcome">✅ Client uploads their first real BOQ and sees it structured digitally</div>
+                            <div class="sprint-outcome">✅ PM uploads BOQ, and site surveyor logs survey quantities with sketch proofs</div>
                           </div>
                           <div class="sprint-card">
                             <div class="sprint-card-header">Sprint 2</div>
-                            <div class="sprint-card-title">📊 MILESTONE Command Centre Dashboard</div>
-                            <div class="sprint-replaces">Replaces: MILESTONE sheet (50+ projects master tracker)</div>
+                            <div class="sprint-card-title">📐 Design Release Board</div>
+                            <div class="sprint-replaces">Replaces: Color-coded design Excel columns &amp; manual BOMs</div>
                             <ul class="sprint-tasks">
-                              <li>All projects visible as cards on one screen</li>
-                              <li>Status badge: ON TRACK / OFF TRACK / AT RISK / HOLD</li>
-                              <li>Live T/R/D/I numbers per project</li>
-                              <li>Assigned PM + Designer shown on card</li>
-                              <li>Filter by: City / Zone / PM / Status</li>
-                              <li>Click project → go to project detail</li>
+                              <li>Designer extracts materials (BOM/Cutlist) from surveyed areas</li>
+                              <li>Upload production spreadsheets (Work Orders/BOM/PDF)</li>
+                              <li>Version control: lock active versions (V1/V2/V3)</li>
+                              <li>Pending Survey Tracker (shows surveys NOT yet converted to release)</li>
                             </ul>
-                            <div class="sprint-outcome">✅ Director sees all 50 projects on one screen — no Excel needed</div>
+                            <div class="sprint-outcome">✅ Release team tracks pending survey-to-production conversions and locks drawings</div>
                           </div>
                           <div class="sprint-card">
                             <div class="sprint-card-header">Sprint 3</div>
-                            <div class="sprint-card-title">📐 Design Stage Tracker</div>
-                            <div class="sprint-replaces">Replaces: Color-coded design columns (Concept/Structure/Shop/Colour/MS/Glass/BOM)</div>
+                            <div class="sprint-card-title">📊 Milestone Hub &amp; Factory Dispatch Billing</div>
+                            <div class="sprint-replaces">Replaces: Master MILESTONE sheet + manual dispatch tallies</div>
                             <ul class="sprint-tasks">
-                              <li>Per BOQ item: 7 design stages tracked</li>
-                              <li>Stage status: Pending → In Progress → Approved → Rejected</li>
-                              <li>Drawing file upload per stage (PDF, versioned)</li>
-                              <li>V1/V2/V3 version lock — only one active</li>
-                              <li>Target date per stage with overdue alert</li>
-                              <li>Designer assigned per item</li>
+                              <li>One-screen dashboard showing live card grids of all 50+ projects</li>
+                              <li>Filter projects by: City, Zone, PM, or Status (ON TRACK/AT RISK)</li>
+                              <li>Billing Clerk Dispatch Uploader: Upload bills to record plant dispatches (D)</li>
+                              <li>Real-time calculations for Dispatch balance and progress</li>
                             </ul>
-                            <div class="sprint-outcome">✅ No more outdated drawings on site — version lock enforced digitally</div>
+                            <div class="sprint-outcome">✅ Directors see live project metrics driven by real billing clerk dispatch updates</div>
                           </div>
                           <div class="sprint-card">
                             <div class="sprint-card-header">Sprint 4</div>
-                            <div class="sprint-card-title">📱 Mobile DPR App</div>
-                            <div class="sprint-replaces">Replaces: WhatsApp T/R/D/I text messages from site engineers</div>
+                            <div class="sprint-card-title">📱 Mobile DPR &amp; SLA Task Board</div>
+                            <div class="sprint-replaces">Replaces: WhatsApp text updates + AJAY ji Issue log</div>
                             <ul class="sprint-tasks">
-                              <li>Select Project → Select Item → View yesterday balance</li>
-                              <li>Enter: Delivered today + Installed today</li>
-                              <li>Upload site photo (mandatory) + GPS auto-stamp</li>
-                              <li>Flag blocker (yes/no) with description</li>
-                              <li>Offline queue — syncs when network available</li>
-                              <li>Submit → MILESTONE auto-updates live</li>
+                              <li>App tracks **Received Today** (site) vs **Dispatched** (factory)</li>
+                              <li>App tracks **Installed Today** (quantities + mandatory photo + GPS)</li>
+                              <li>Supports partial deliveries &amp; tracks pending balance</li>
+                              <li>Drag-and-drop Kanban SLA Task Board (project-wise, assigned owners)</li>
+                              <li>48-hour SLA delay alarms on Kanban blockers</li>
                             </ul>
-                            <div class="sprint-outcome">✅ Naushad submits DPR in 30 seconds — director sees it instantly</div>
+                            <div class="sprint-outcome">✅ Supervisors enter received/installed stats on site; task boards trigger delay alarms</div>
                           </div>
                         </div>
                       </div>
@@ -1702,8 +1697,8 @@
                     <div class="phase-panel" id="ph2" style="display:none;">
                       <div class="phase-panel-header" style="background: linear-gradient(135deg, #1a2a4a, #2d4a7a);">
                         <div>
-                          <h5>Phase 2: Operations — Resource & Issue Management</h5>
-                          <p>Replaces: Deepak Workbook + AJAY ji Issues Sheet + ZONE sheet + HANDOVER sheet</p>
+                          <h5>Phase 2: Operations — Resource &amp; Contractor Management</h5>
+                          <p>Replaces: Deepak Workbook + PROJECT STAFF NEW + ZONE sheet + HANDOVER sheet</p>
                         </div>
                         <div class="phase-meta-box">
                           <span class="phase-badge amber">🔵 PLANNED</span>
@@ -1712,50 +1707,45 @@
                       <div class="phase-panel-body">
                         <div class="sprint-cards-grid">
                           <div class="sprint-card">
-                            <div class="sprint-card-header">Module 5</div>
-                            <div class="sprint-card-title">👥 Resource OS — Staff Allocation</div>
-                            <div class="sprint-replaces">Replaces: PROJECT STAFF NEW sheet (DGM/ZPM/PM/Supervisor color matrix)</div>
-                            <ul class="sprint-tasks">
-                              <li>Org hierarchy: DGM → ZPM → PM → Supervisor → Workers</li>
-                              <li>Per project: who is assigned in which role</li>
-                              <li>Person profile: how many projects assigned</li>
-                              <li>Alert: project with no PM or Supervisor assigned</li>
-                              <li>Transfer person between projects</li>
-                            </ul>
-                          </div>
-                          <div class="sprint-card">
                             <div class="sprint-card-header">Module 6</div>
-                            <div class="sprint-card-title">🚨 Issue & Blocker Tracker</div>
-                            <div class="sprint-replaces">Replaces: AJAY ji sheet (Site Name / Issue / Solution log)</div>
+                            <div class="sprint-card-title">👥 Resource OS — Staff Allocation</div>
+                            <div class="sprint-replaces">Replaces: PROJECT STAFF NEW sheet (DGM/ZPM/PM/Supervisor matrix)</div>
                             <ul class="sprint-tasks">
-                              <li>Raise issue: Site | Category | Description | Photo</li>
-                              <li>Assign owner + set deadline</li>
-                              <li>Status: OPEN / IN PROGRESS / RESOLVED / HOLD</li>
-                              <li>48hr no-action → WhatsApp alert to PM + DGM</li>
-                              <li>Filter by: Site / Status / Owner / Date</li>
+                              <li>Org hierarchy setup: DGM → ZPM → PM → Supervisor</li>
+                              <li>Per project: who is assigned to which role</li>
+                              <li>Visual mapping of workloads and active projects</li>
+                              <li>System alerts if any project has no PM/Supervisor assigned</li>
                             </ul>
                           </div>
                           <div class="sprint-card">
                             <div class="sprint-card-header">Module 7</div>
-                            <div class="sprint-card-title">🏗️ Contractor Allocation Board</div>
+                            <div class="sprint-card-title">🏗️ Contractor Allocation Board (Deepak Workbook)</div>
                             <div class="sprint-replaces">Replaces: Deepak Workbook (contractor × project × worker matrix)</div>
                             <ul class="sprint-tasks">
-                              <li>Contractor master list with skill and city</li>
-                              <li>Per project: contractor + worker count required vs actual</li>
-                              <li>Shortage alert if actual &lt; required</li>
-                              <li>Productivity: panels installed ÷ workers present</li>
+                              <li>Contractor database by skill, rating, and city</li>
+                              <li>Per project: required worker headcount vs actual present counts</li>
+                              <li>Labor Yield calculation (panels installed ÷ workers present)</li>
+                              <li>Automated shortage alerts sent to PM and Contractor</li>
                             </ul>
                           </div>
                           <div class="sprint-card">
-                            <div class="sprint-card-header">Module 8 + 9</div>
-                            <div class="sprint-card-title">📋 Handover + Zone Control</div>
-                            <div class="sprint-replaces">Replaces: HANDOVER sheet + ZONE sheet</div>
+                            <div class="sprint-card-header">Module 8</div>
+                            <div class="sprint-card-title">📋 Handover Checklist</div>
+                            <div class="sprint-replaces">Replaces: HANDOVER sheet (Project closure parameters)</div>
                             <ul class="sprint-tasks">
-                              <li>Project closure checklist: Test/Trace, Paper Sign, Compliance</li>
-                              <li>Assign responsible person per checklist item</li>
-                              <li>Status: PENDING → DONE with date stamp</li>
-                              <li>Zone cards: Gurgaon-11 / Noida-12 / Delhi / etc.</li>
-                              <li>AT RISK projects shown at top of zone</li>
+                              <li>Project sign-off checks (Test &amp; Trace, snag list, paper signatures)</li>
+                              <li>Assign checks to responsible owners with target dates</li>
+                              <li>Track status: PENDING → COMPLETED with timestamp signatures</li>
+                            </ul>
+                          </div>
+                          <div class="sprint-card">
+                            <div class="sprint-card-header">Module 9</div>
+                            <div class="sprint-card-title">🗺️ Zone Control View</div>
+                            <div class="sprint-replaces">Replaces: ZONE sheet (PM-to-Zone matrix mapping)</div>
+                            <ul class="sprint-tasks">
+                              <li>Interactive city cards: Gurgaon-11, Noida-12, Delhi</li>
+                              <li>Lists projects per zone with live color-coded status</li>
+                              <li>ZPM workloads and delayed projects highlighted at the top</li>
                             </ul>
                           </div>
                         </div>
@@ -1935,19 +1925,19 @@
                         <div class="status-item-list">
                           <div class="status-item green">
                             <span class="si-icon">✅</span>
-                            <div><strong>Project Create + BOQ Import</strong><br>Excel upload → column map → structured item list. One-time setup per project format.</div>
+                            <div><strong>Project Setup &amp; Survey Log</strong><br>Upload BOQ Excel. Log surveys (surveyed qty vs total BOQ) &amp; upload survey sketch photos.</div>
                           </div>
                           <div class="status-item green">
                             <span class="si-icon">✅</span>
-                            <div><strong>Live MILESTONE Dashboard</strong><br>All 50 projects. Status cards. TRDI live. Filter by zone/PM. Director sees everything in 30 seconds.</div>
+                            <div><strong>Design Release Board</strong><br>Release team tracks pending survey-to-release conversions, issues work orders, &amp; locks drawing versions.</div>
                           </div>
                           <div class="status-item green">
                             <span class="si-icon">✅</span>
-                            <div><strong>Design Stage Board</strong><br>7 stages per item. Upload drawing. Lock version. Overdue alerts. No manual color coding.</div>
+                            <div><strong>Milestone Dashboard &amp; Dispatch Import</strong><br>Live dashboard showing status cards. Billing clerk uploads ERP bill reports to track dispatched quantities (D).</div>
                           </div>
                           <div class="status-item green">
                             <span class="si-icon">✅</span>
-                            <div><strong>Mobile DPR App</strong><br>30-second entry. Photo + GPS. Offline. MILESTONE auto-updates. WhatsApp entry stops.</div>
+                            <div><strong>Mobile DPR &amp; SLA Task Board</strong><br>Site app logs Received vs Installed (GPS/Photo). Kanban task board displays project blockers with 48hr auto-alerts.</div>
                           </div>
                         </div>
                       </div>
@@ -1958,27 +1948,27 @@
                         <div class="status-item-list">
                           <div class="status-item blue">
                             <span class="si-icon">👥</span>
-                            <div><strong>Resource OS</strong><br>Deepak workbook becomes digital. Who is where. Who is missing. Real-time.</div>
+                            <div><strong>Resource OS</strong><br>PROJECT STAFF NEW becomes digital. PM/ZPM/Supervisor hierarchy mapping per project.</div>
                           </div>
                           <div class="status-item blue">
-                            <span class="si-icon">🚨</span>
-                            <div><strong>Issue Tracker</strong><br>Raise → Assign owner → Deadline → 48hr auto-escalation to PM + DGM on WhatsApp.</div>
+                            <span class="si-icon">👷</span>
+                            <div><strong>Contractor Allocation Board</strong><br>Deepak Workbook matrix. Dynamic headcounts (Required vs Actual) &amp; labor yields.</div>
                           </div>
                           <div class="status-item blue">
                             <span class="si-icon">📋</span>
-                            <div><strong>Handover Checklist</strong><br>Sign-offs, Test & Trace compliance checklists with due dates and responsible owners.</div>
+                            <div><strong>Handover Checklist</strong><br>Closure checklist parameters (Test &amp; Trace, snags) with deadlines and assigned owners.</div>
                           </div>
                           <div class="status-item blue">
                             <span class="si-icon">🔧</span>
-                            <div><strong>Fitter Attendance App</strong><br>Delhi/Noida/Gurgaon fitter daily mobile check-in. E-Code based. Auto summary report.</div>
+                            <div><strong>Fitter Attendance App</strong><br>Delhi/Noida/Gurgaon fitter mobile E-Code check-ins. Daily attendance stats auto-summarized.</div>
                           </div>
                           <div class="status-item purple">
                             <span class="si-icon">📲</span>
-                            <div><strong>Auto WhatsApp @ 6:30 PM</strong><br>Zero manual work. System compiles and sends. 60+ hours/month saved for the team.</div>
+                            <div><strong>Auto WhatsApp @ 6:30 PM</strong><br>Zero manual compilation. Engine automatically posts daily site logs directly to target group chats.</div>
                           </div>
                           <div class="status-item gold">
                             <span class="si-icon">🌐</span>
-                            <div><strong>Client Portal + BIM</strong><br>M3M logs in, sees their project live. 3D building turns green as panels install.</div>
+                            <div><strong>Client Portal + BIM</strong><br>Clients (M3M/Smart World) log in to view live progress. 3D facade twin turns green as site installs.</div>
                           </div>
                         </div>
                       </div>
