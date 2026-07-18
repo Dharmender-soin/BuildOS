@@ -767,7 +767,7 @@ function simulateDrawingScan(version) {
   }
 }
 
-// Frame 7: Desi UI Mobile screen wizard
+// Frame 7: Mobile Screen Wizard UI
 let mobileStep = 1;
 let mobileSelectedProject = "Paras Avenue – 129";
 let mobileSelectedLocation = "Tower A ➔ Level 05";
