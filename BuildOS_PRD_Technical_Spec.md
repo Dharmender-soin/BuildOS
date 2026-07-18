@@ -18,15 +18,21 @@ Axsys designs, manufactures, and installs high-end aluminium facades (unitized g
        ↓
 [Step 3] On-Site Actual Survey (Elevation-wise Measurement + Hand-drawn Sketch)
        ↓
-[Step 4] Design Release / BOM (Work Order to Factory)
+[Step 4] Axsys Designer → Shop Drawing (CAD / GFC Drawing)
        ↓
-[Step 5] Factory Production + External Purchase (Indent)
+[Step 4A] ⭐ Shop Drawing sent to CLIENT'S CONSULTANT for Approval
+          → APPROVED (GFC Stamp) → Proceed to Production
+          → REJECTED → Revision required → Loop back to Step 4
        ↓
-[Step 6] Dispatch Document → Site Delivery (Received)
+[Step 5] Design Release / BOM → Work Order to Factory
        ↓
-[Step 7] Installation (GPS + Photo)
+[Step 6] Factory Production + External Purchase (Indent)
        ↓
-[Step 8] Snag Resolution → Handover Sign-off
+[Step 7] Dispatch Document → Site Delivery (Received)
+       ↓
+[Step 8] Installation (GPS + Photo)
+       ↓
+[Step 9] Snag Resolution → Handover Sign-off
 ```
 
 ### 1.3 Why 4 Quantities Exist per Project
@@ -69,8 +75,15 @@ BuildOS directly translates Axsys's current manual spreadsheets into automated, 
 * **Details:** PM/Surveyor enters surveyed quantities (e.g. surveyed 200 sqm out of 1000 sqm item) and uploads hand-drawn/manual survey sketch photos. Tracks total BOQ qty vs surveyed qty.
 
 #### Module 2: Design Release Board (Design/Release Team)
-* **Function:** Design/Release team extracts material requirements (BOM/Cutlist) from surveyed areas, uploads production Excel sheets (Work Orders/BOM), and tracks pending survey-to-release conversions (how many surveys are NOT yet converted to design release).
-* **Details:** Displays a list of pending surveys waiting for production documents to be generated. Once a work order is generated, the status updates and the PDF is version-locked.
+* **Function:** Axsys designer creates shop drawings from surveyed data, submits to client's consultant for approval (GFC stamp), and then generates the BOM/Work Order for factory production.
+* **Details:**
+  - Designer uploads shop drawing (CAD/PDF) after survey
+  - System tracks submission to consultant (date + who sent)
+  - Consultant status: `PENDING_APPROVAL` → `APPROVED (GFC)` → `REJECTED (Revision)`
+  - If rejected → revision round tracked (Rev-1, Rev-2, etc.)
+  - Only after GFC stamp → Work Order/BOM generated for factory
+  - Pending surveys NOT yet converted to approved drawings are shown as a risk list
+  - 24-hour SLA alert: if drawing is not submitted to consultant within 24hrs of survey
 
 #### Module 3: MILESTONE Command Centre & Dispatch Clerk Import
 * **Function:** Unified dashboard displaying all 50+ projects as status cards.
@@ -233,12 +246,30 @@ surveys (
   surveyor_id UUID REFERENCES users(id),
   survey_qty NUMERIC NOT NULL,        -- Q4: Actual measured qty on site
   sketch_url TEXT,                    -- Hand-drawn/manual survey sketch photo
-  status TEXT CHECK (status IN ('PENDING_RELEASE', 'RELEASED_TO_PRODUCTION')) DEFAULT 'PENDING_RELEASE',
+  status TEXT CHECK (status IN ('PENDING_DRAWING', 'DRAWING_SUBMITTED', 'CONSULTANT_APPROVED', 'CONSULTANT_REJECTED', 'RELEASED_TO_PRODUCTION')) DEFAULT 'PENDING_DRAWING',
   release_deadline TIMESTAMPTZ,       -- auto = created_at + 24 hours (SLA enforcement)
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- DESIGN RELEASES
+-- ⭐ CONSULTANT DRAWING APPROVALS (Step 4A — GFC Approval Loop)
+-- After survey, Axsys designer makes shop drawing and sends to client's consultant for GFC stamp
+shop_drawing_approvals (
+  id UUID PRIMARY KEY,
+  survey_id UUID REFERENCES surveys(id),
+  project_id UUID REFERENCES projects(id),
+  elevation_id UUID REFERENCES elevations(id),
+  drawing_file_url TEXT NOT NULL,     -- Axsys shop drawing PDF uploaded
+  revision_no TEXT DEFAULT 'Rev-0',   -- Tracks revision rounds (Rev-0, Rev-1, Rev-2...)
+  submitted_by UUID REFERENCES users(id),  -- Axsys designer who submitted
+  submitted_date DATE,
+  consultant_name TEXT,               -- Name of client's consultant/architect
+  approval_status TEXT CHECK (approval_status IN ('PENDING_APPROVAL', 'APPROVED_GFC', 'REJECTED_REVISION')) DEFAULT 'PENDING_APPROVAL',
+  approval_date DATE,                 -- Date consultant gave GFC stamp
+  rejection_remarks TEXT,             -- If rejected, consultant's comments for revision
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- DESIGN RELEASES (Only created AFTER shop_drawing_approvals.approval_status = 'APPROVED_GFC')
 production_releases (
   id UUID PRIMARY KEY,
   survey_id UUID REFERENCES surveys(id),
