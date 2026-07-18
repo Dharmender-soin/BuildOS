@@ -153,6 +153,9 @@ projects (
   designer_id UUID REFERENCES users(id),
   start_date DATE,
   end_date DATE,
+  civil_ready_date DATE,              -- Coordinating Civil construction stage
+  mep_coordination_date DATE,          -- Coordinating MEP construction stage
+  facade_start_date DATE,             -- Coordinating Facade construction stage
   payment_terms TEXT,
   status TEXT CHECK (status IN ('ON_TRACK','OFF_TRACK','AT_RISK','HOLD','COMPLETED')) DEFAULT 'ON_TRACK',
   created_at TIMESTAMPTZ DEFAULT NOW()
@@ -164,8 +167,9 @@ boq_items (
   project_id UUID REFERENCES projects(id),
   item_no TEXT NOT NULL,              -- e.g., "A.1" or "WT-01"
   description TEXT NOT NULL,
-  unit TEXT NOT NULL,                 -- e.g., "SQM", "NOS", "RMT"
+  unit TEXT NOT NULL,                 -- e.g., "SQM", "NOS", "RMT", "MT"
   total_qty_boq NUMERIC NOT NULL,
+  item_category TEXT CHECK (item_category IN ('MAIN_FACADE', 'ACCESSORY_SCREW_BRACKET')) DEFAULT 'MAIN_FACADE', -- Tracks tiny components vs main panels
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -178,6 +182,7 @@ surveys (
   survey_qty NUMERIC NOT NULL,
   sketch_url TEXT,                    -- Manual/hand-drawn survey sketch image
   status TEXT CHECK (status IN ('PENDING_RELEASE', 'RELEASED_TO_PRODUCTION')) DEFAULT 'PENDING_RELEASE',
+  release_deadline TIMESTAMPTZ,       -- Enforces 24-hour design release SLA (created_at + 24 Hours)
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -213,6 +218,8 @@ dpr_entries (
   entry_date DATE NOT NULL,
   received_today NUMERIC DEFAULT 0,    -- Delivered to site today
   installed_today NUMERIC DEFAULT 0,
+  transit_loss_qty NUMERIC DEFAULT 0,  -- Dispatched vs Received discrepancy calculation
+  snag_logs_count INT DEFAULT 0,      -- Tracks technical errors/snags during install
   site_photo_url TEXT,
   gps_lat NUMERIC,
   gps_lng NUMERIC,
@@ -263,6 +270,17 @@ $$\text{Total Scope (T)} \ge \text{Released (R)} \ge \text{Delivered (D)} \ge \t
 - GPS coordinates stamp must match the project site location within a 2.5km radius.
 - Site photo upload is mandatory to save any installation numbers.
 - No negative progress quantities are accepted.
+
+### 5.3 24-Hour Design Release SLA Alert
+- Once a survey entry (sketch + quantity) is logged, the system automatically sets a `release_deadline` of `created_at + 24 hours`.
+- If the Design/Release team does not upload the corresponding production work order/BOM sheet and update the status to `RELEASED_TO_PRODUCTION` within this 24-hour window:
+  - The project card displays a red **SLA Alert** badge on the dashboard.
+  - A WhatsApp notification is triggered to the Designer and PM alerting them of the delay.
+
+### 5.4 Accessory & Transit Loss Reconciliation
+- **Accessory Tracking:** Items marked under `ACCESSORY_SCREW_BRACKET` are tracked by unit package count (e.g. Box, Bags) instead of individual units to simplify site logs for supervisors.
+- **Transit Loss Detection:** If `received_today` (site engineer entry) is less than `dispatch_qty` (billing clerk entry) for a specific dispatch bill, the discrepancy is logged as `transit_loss_qty` and flagged on the PM dashboard.
+- **QC Snag Log:** Sites can log installation technical errors (snags). A BOQ item with active/unresolved snags is blocked from being marked as 100% completed.
 
 ---
 

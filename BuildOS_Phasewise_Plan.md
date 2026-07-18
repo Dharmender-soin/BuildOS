@@ -9,14 +9,14 @@
 *Directly replaces: MILESTONE Master Excel, Per-Project Design spreadsheets, WhatsApp progress texts, and manual task lists.*
 
 ### Module 1: BOQ & Survey Input
-* **What it does:** Upload client BOQ Excel, map columns, and parse items. Support logging of surveys (e.g. out of 1000 sqm door BOQ, we surveyed 200 sqm today) along with uploading a hand-drawn/manual survey sketch photo.
+* **What it does:** Upload client BOQ Excel, map columns, and parse items. Support logging of surveys (e.g. out of 1000 sqm door BOQ, we surveyed 200 sqm today) along with uploading a hand-drawn/manual survey sketch photo. Supports **Accessory Classification** (tracks screws/brackets in bulk packaging like boxes/bags instead of single units).
 * **Axsys Excel Replaced:** Individual project sheets (M3M, Vegas, Sky Xotic tabs) + raw site survey sketches.
-* **Final Outcome:** Structured project BOQ with logged surveyed quantities and attached sketch documentation.
+* **Final Outcome:** Structured project BOQ (classified by item types) with logged surveyed quantities and attached sketch documentation.
 
 ### Module 2: Design Release Board (Design/Release Team)
-* **What it does:** Design/Release team extracts material requirements from surveyed areas, uploads production Excel sheets (Work Orders/BOM), and tracks pending survey conversions (how many surveys are NOT yet converted to design release).
+* **What it does:** Design/Release team extracts material requirements from surveyed areas, uploads production Excel sheets (Work Orders/BOM), and tracks pending survey conversions. Enforces a **24-Hour Release SLA** (system warns if a survey is not converted to a work order release within 24 hours).
 * **Axsys Excel Replaced:** Color-coded design columns and manual BOM spreadsheets.
-* **Final Outcome:** Full visibility into pending design-release conversions, preventing production backlogs.
+* **Final Outcome:** Full visibility into pending design-release conversions, preventing production backlogs with 24-hour delay alerts.
 
 ### Module 3: MILESTONE Command Centre & Dispatch/Billing Import
 * **What it does:** Unified dashboard displaying all 50+ projects as cards with live status (`ON TRACK`, `AT RISK`, `HOLD`). Supports billing/dispatch clerk uploading daily bill/invoice logs to track dispatched quantities.
@@ -24,9 +24,9 @@
 * **Final Outcome:** Dashboard showing live T/R/D/I numbers driven directly by factory bills and site inputs.
 
 ### Module 4: Mobile DPR Application (Flutter)
-* **What it does:** App for site supervisors to log daily **Received Today** (factory dispatches) and **Installed Today** quantities per BOQ item. Mandatory site photo and GPS coordinates stamp. Tracks partial deliveries.
-* **Axsys Workflow Replaced:** Site engineers typing manual WhatsApp reports.
-* **Final Outcome:** Real-time mismatch tracking (Plant Dispatched vs Site Received) and progress logging with offline support.
+* **What it does:** App for site supervisors to log daily **Received Today** (factory dispatches) and **Installed Today** quantities. Mandatory site photo and GPS coordinates stamp. Automatically calculates **Transit Loss** (discrepancy between dispatched vs received) and supports logging of **QC Installation Snags** to reduce technical errors.
+* **Axsys Workflow Replaced:** Site engineers typing manual WhatsApp reports + manual snag listings.
+* **Final Outcome:** Real-time mismatch tracking (Plant Dispatched vs Site Received), snag logs, and progress tracking with offline support.
 
 ### Module 5: SLA Issue Tracker & Task Board (Kanban)
 * **What it does:** A drag-and-drop Kanban task board (similar to Monday.com or Google Tasks) to track site blocker issues. Tasks are mapped to a project and assigned to a responsible owner.
