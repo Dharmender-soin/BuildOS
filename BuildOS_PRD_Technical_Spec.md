@@ -12,8 +12,32 @@ BuildOS is a unified digital operating platform designed specifically for **Axsy
 ### 1.2 Core Business Model (Axsys)
 Axsys designs, manufactures, and installs high-end aluminium facades (unitized glazing, spider canopies, ACP cladding). Their operations follow a linear progress pipeline:
 ```
-BOQ Upload ➔ Survey (Sketch Upload) ➔ Design Release (Work Order) ➔ Factory Dispatch (Billed) ➔ Site Delivery (Received) ➔ Installation ➔ Handover
+[Step 1] Consultant Civil Drawing (BOQ Qty)
+       ↓
+[Step 2] Client Company Drawing Review + Axsys Internal Estimate (Anuman)
+       ↓
+[Step 3] On-Site Actual Survey (Elevation-wise Measurement + Hand-drawn Sketch)
+       ↓
+[Step 4] Design Release / BOM (Work Order to Factory)
+       ↓
+[Step 5] Factory Production + External Purchase (Indent)
+       ↓
+[Step 6] Dispatch Document → Site Delivery (Received)
+       ↓
+[Step 7] Installation (GPS + Photo)
+       ↓
+[Step 8] Snag Resolution → Handover Sign-off
 ```
+
+### 1.3 Why 4 Quantities Exist per Project
+Every project has **4 different quantity references** which must all be tracked to resolve disputes:
+
+| Quantity | Source | Who Provides |
+|---|---|---|
+| **Q1 — Consultant BOQ Qty** | Civil architect/consultant drawing | Client or Consultant |
+| **Q2 — Client Drawing Estimate** | Axsys PM reads client company's architectural drawing | Axsys PM |
+| **Q3 — Internal Estimate (Anuman)** | Axsys's own calculated estimate for tendering | Axsys Design/Estimation |
+| **Q4 — On-site Survey Actual** | Physical measurement done at site | Axsys Site Engineer |
 
 ---
 
@@ -161,6 +185,31 @@ projects (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- CONSULTANT & CLIENT DRAWINGS (Pre-Survey Reference Documents)
+consultant_drawings (
+  id UUID PRIMARY KEY,
+  project_id UUID REFERENCES projects(id),
+  drawing_type TEXT CHECK (drawing_type IN ('CONSULTANT_CIVIL', 'CLIENT_ARCHITECTURAL')) NOT NULL,
+  revision_no TEXT,                   -- e.g. "Rev-0", "Rev-2"
+  drawing_file_url TEXT,             -- Uploaded PDF
+  issued_by TEXT,                    -- Consultant/Architect name
+  gfc_approved BOOLEAN DEFAULT false, -- Good For Construction stamped?
+  issued_date DATE,
+  received_date DATE,
+  uploaded_by UUID REFERENCES users(id),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- PROJECT ELEVATIONS (Elevation-wise breakdown: Front/Back/Left/Right or A/B/C/D)
+elevations (
+  id UUID PRIMARY KEY,
+  project_id UUID REFERENCES projects(id),
+  elevation_code TEXT NOT NULL,       -- e.g. "A", "Front", "North"
+  description TEXT,
+  estimated_area NUMERIC,             -- sqm from drawing
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- BOQ ITEMS
 boq_items (
   id UUID PRIMARY KEY,
@@ -168,21 +217,24 @@ boq_items (
   item_no TEXT NOT NULL,              -- e.g., "A.1" or "WT-01"
   description TEXT NOT NULL,
   unit TEXT NOT NULL,                 -- e.g., "SQM", "NOS", "RMT", "MT"
-  total_qty_boq NUMERIC NOT NULL,
-  item_category TEXT CHECK (item_category IN ('MAIN_FACADE', 'ACCESSORY_SCREW_BRACKET')) DEFAULT 'MAIN_FACADE', -- Tracks tiny components vs main panels
+  total_qty_boq NUMERIC NOT NULL,     -- Q1: Consultant BOQ qty
+  client_drawing_qty NUMERIC,         -- Q2: Qty read from client's own architectural drawing
+  internal_estimate_qty NUMERIC,      -- Q3: Axsys internal estimate/anuman (for tendering)
+  item_category TEXT CHECK (item_category IN ('MAIN_FACADE', 'ACCESSORY_SCREW_BRACKET')) DEFAULT 'MAIN_FACADE',
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SURVEY TRACKING
+-- SURVEY TRACKING (Q4: On-site actual measurement)
 surveys (
   id UUID PRIMARY KEY,
   project_id UUID REFERENCES projects(id),
   boq_item_id UUID REFERENCES boq_items(id),
+  elevation_id UUID REFERENCES elevations(id), -- Which elevation was surveyed
   surveyor_id UUID REFERENCES users(id),
-  survey_qty NUMERIC NOT NULL,
-  sketch_url TEXT,                    -- Manual/hand-drawn survey sketch image
+  survey_qty NUMERIC NOT NULL,        -- Q4: Actual measured qty on site
+  sketch_url TEXT,                    -- Hand-drawn/manual survey sketch photo
   status TEXT CHECK (status IN ('PENDING_RELEASE', 'RELEASED_TO_PRODUCTION')) DEFAULT 'PENDING_RELEASE',
-  release_deadline TIMESTAMPTZ,       -- Enforces 24-hour design release SLA (created_at + 24 Hours)
+  release_deadline TIMESTAMPTZ,       -- auto = created_at + 24 hours (SLA enforcement)
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -257,6 +309,21 @@ trdi_snapshots (
 ---
 
 ## 5. VALIDATION RULES (System Constraints)
+
+### 5.0 The 4-Quantity Comparison Rule (Dispute Prevention)
+Every BOQ item tracks **4 different quantity sources** to provide evidence in client disputes:
+
+| Field | Source | Purpose |
+|---|---|---|
+| `total_qty_boq` | Consultant's Civil Drawing | Original contracted scope |
+| `client_drawing_qty` | Client company's architectural drawing (read by Axsys PM) | Cross-reference check |
+| `internal_estimate_qty` | Axsys internal estimate (Anuman) | Tendering baseline |
+| `survey_qty` | On-site physical measurement | Actual work reality |
+
+**Dashboard Warning Rules:**
+- If `survey_qty` > `total_qty_boq` by more than **5%** → Flag as **"Scope Increase - Client Approval Needed"**
+- If `survey_qty` < `internal_estimate_qty` by more than **10%** → Flag as **"Under-scope Risk"**
+- The system stores all 4 values permanently — they cannot be edited after submission (audit trail).
 
 ### 5.1 The TRDI Quantity Rule
 To prevent data entry errors, the system enforces the following hierarchy at all times:
