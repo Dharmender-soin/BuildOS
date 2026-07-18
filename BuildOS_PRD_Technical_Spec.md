@@ -339,6 +339,31 @@ trdi_snapshots (
   installed_qty NUMERIC DEFAULT 0,
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- ⭐ PROJECT HOLD / RESUME HISTORY
+-- Tracks every time a project is put on HOLD or RESUMED — full audit trail
+project_hold_logs (
+  id UUID PRIMARY KEY,
+  project_id UUID REFERENCES projects(id),
+  held_by UUID REFERENCES users(id),    -- Who triggered HOLD
+  hold_category TEXT CHECK (hold_category IN (
+    'CLIENT_PAYMENT',       -- Client has not paid previous bills
+    'SITE_NOT_READY',       -- Civil/MEP work incomplete, site inaccessible
+    'GFC_PENDING',          -- Consultant has not approved drawing
+    'DESIGN_CHANGE',        -- Client requested scope/design change
+    'MATERIAL_UNAVAILABLE', -- Factory or external material not available
+    'CLIENT_DISPUTE',       -- Disagreement between Axsys and client
+    'OTHER'
+  )) NOT NULL,
+  hold_details TEXT NOT NULL,           -- Full explanation (mandatory)
+  expected_resume_date DATE,            -- When PM expects work to resume
+  held_at TIMESTAMPTZ DEFAULT NOW(),    -- Exact timestamp of HOLD
+  -- RESUME FIELDS (filled when project is resumed)
+  resumed_by UUID REFERENCES users(id),
+  resume_reason TEXT,                   -- Why / how issue was resolved
+  resumed_at TIMESTAMPTZ,
+  hold_duration_days INT                -- Auto-calculated on resume
+);
 ```
 
 ---
@@ -383,6 +408,38 @@ $$\text{Total Scope (T)} \ge \text{Released (R)} \ge \text{Delivered (D)} \ge \t
 - **Accessory Tracking:** Items marked under `ACCESSORY_SCREW_BRACKET` are tracked by unit package count (e.g. Box, Bags) instead of individual units to simplify site logs for supervisors.
 - **Transit Loss Detection:** If `received_today` (site engineer entry) is less than `dispatch_qty` (billing clerk entry) for a specific dispatch bill, the discrepancy is logged as `transit_loss_qty` and flagged on the PM dashboard.
 - **QC Snag Log:** Sites can log installation technical errors (snags). A BOQ item with active/unresolved snags is blocked from being marked as 100% completed.
+
+### 5.5 Project HOLD / RESUME Workflow Rules
+
+**When a project is placed on HOLD, the following rules apply:**
+
+| Action | HOLD Status |
+|---|---|
+| New survey entry | ❌ BLOCKED |
+| New factory dispatch entry | ❌ BLOCKED |
+| New installation DPR entry | ❌ BLOCKED |
+| New survey / SLA timers | ❌ PAUSED (timer frozen at hold time) |
+| Marking already-arrived material as "Received" | ✅ ALLOWED (material was already in transit) |
+| Logging Kanban tasks and blockers | ✅ ALLOWED |
+| Submitting Soft Drawing to consultant | ✅ ALLOWED (paperwork continues) |
+| Adding notes/comments to project | ✅ ALLOWED |
+
+**HOLD Trigger Requirements:**
+- `hold_category` (dropdown) — mandatory
+- `hold_details` (text explanation) — mandatory
+- `expected_resume_date` — optional but recommended
+- Only users with role PM, ZPM, or Director can place a HOLD
+
+**RESUME Trigger:**
+- `resume_reason` — mandatory text (explain how issue was resolved)
+- SLA timers restart fresh from resume date
+- `hold_duration_days` auto-calculated and stored for director reporting
+- WhatsApp alert sent: "Project [Name] RESUMED after [N] days — [reason]"
+
+**HOLD Analysis (Director Dashboard):**
+- Shows all currently HOLDed projects with reason and days held
+- Monthly report: most common HOLD reason, average HOLD duration
+- If project is HOLD for more than 14 days → escalation alert to Director
 
 ---
 
